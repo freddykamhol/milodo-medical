@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import SiteFooter from "./site-footer";
+import SiteHeader from "./site-header";
 
 export const metadata: Metadata = {
   title: {
@@ -13,9 +15,15 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        <div id="top" />
+        <SiteHeader variant="page" />
+        {children}
+        <SiteFooter contactEmail={contactEmail} />
+      </body>
     </html>
   );
 }

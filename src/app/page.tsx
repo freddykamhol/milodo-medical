@@ -4,8 +4,6 @@ import type { CSSProperties } from "react";
 import ContactForm from "./contact-form";
 import BlogCarousel from "./blog-carousel";
 import ScrollFx from "./scroll-fx";
-import SiteHeader from "./site-header";
-import SiteFooter from "./site-footer";
 import { getLatestBlogPostsMeta } from "@/lib/blog";
 
 export const runtime = "nodejs";
@@ -213,7 +211,6 @@ export default async function HomePage() {
   const latestPosts = await getLatestBlogPostsMeta(7);
   return (
     <main
-      id="top"
       className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]"
     >
       <ScrollFx />
@@ -227,8 +224,6 @@ export default async function HomePage() {
         <div className="fx-glow fx-glow-2 absolute -bottom-80 right-[-240px] h-[760px] w-[760px] rounded-full bg-[var(--accent)] opacity-[0.10] blur-[150px]" />
         <div className="absolute inset-0 opacity-[0.45] [background-image:radial-gradient(circle_at_1px_1px,color-mix(in_oklab,var(--foreground)_12%,transparent)_1px,transparent_0)] [background-size:18px_18px]" />
       </div>
-
-      <SiteHeader variant="home" />
 
       <section className="relative">
         <div className="mx-auto max-w-6xl px-6 pb-10 pt-10 md:pb-14 md:pt-14">
@@ -681,8 +676,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <SiteFooter contactEmail={CONTACT_EMAIL} />
     </main>
   );
 }

@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import { getAllBlogPostsMeta, getBlogPostBySlug } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
 import { estimateReadingTimeMinutes } from "@/lib/reading";
-import SiteFooter from "@/app/site-footer";
-import SiteHeader from "@/app/site-header";
 import PostBody from "../post-body";
 import PostHero from "../post-hero";
 
@@ -55,12 +53,9 @@ export default async function BeitragPage(props: {
 
   const html = await markdownToHtml(post.content);
   const readingTimeMinutes = estimateReadingTimeMinutes(post.content);
-  const contactEmail =
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
 
   return (
     <div className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]">
-      <SiteHeader variant="page" />
       <PostHero
         title={post.title}
         date={post.date}
@@ -72,7 +67,6 @@ export default async function BeitragPage(props: {
       <main className="mx-auto max-w-3xl px-6 pb-12 pt-10 md:pb-16 md:pt-12">
         <PostBody html={html} postTitle={post.title} />
       </main>
-      <SiteFooter contactEmail={contactEmail} />
     </div>
   );
 }
