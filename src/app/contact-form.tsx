@@ -53,15 +53,9 @@ function RequiredIcon(props: { className?: string }) {
       viewBox="0 0 24 24"
       aria-hidden="true"
       className={props.className ?? "h-3.5 w-3.5 text-red-500"}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
     >
-      <path d="M12 3v18" />
-      <path d="M4.2 7.5l15.6 9" />
-      <path d="M19.8 7.5l-15.6 9" />
+      <circle cx="12" cy="12" r="5.5" />
     </svg>
   );
 }
