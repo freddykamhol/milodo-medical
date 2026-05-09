@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "eslint"
   },
   "dependencies": {
+    "dotenv": "^17.2.2",
     "gray-matter": "^4.0.3",
     "next": "^16.1.6",
     "react": "^19.2.3",
@@ -26,7 +27,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
-    "dotenv": "^17.2.2",
     "eslint": "^9.39.3",
     "eslint-config-next": "^16.1.6",
     "tailwindcss": "^4.2.1",
