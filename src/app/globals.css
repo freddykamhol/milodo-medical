@@ -64,6 +64,12 @@ body {
   will-change: transform;
 }
 
+/* Reduce visible seams on transformed media inside rounded containers */
+[data-parallax] {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
 [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 22px, 0) scale(0.985) rotateX(8deg);

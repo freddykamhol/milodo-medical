@@ -12,7 +12,7 @@ const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
 
 const HOME_IMAGES = {
-  hero: "/images/home/hero.png",
+  hero: "/images/home/hero2.png",
   borse: "/images/home/boerse.png",
   firstAid: "/images/home/erste-hilfe.png",
   sanitaet: "/images/home/sanitaetsdienst.png",
@@ -226,7 +226,7 @@ export default async function HomePage() {
       </div>
 
       <section className="relative">
-        <div className="mx-auto max-w-6xl px-6 pb-10 pt-10 md:pb-14 md:pt-14">
+        <div className="mx-auto max-w-7xl px-6 pb-10 pt-10 md:pb-14 md:pt-14">
           <div className="grid items-center gap-10 md:grid-cols-12">
             <div data-reveal className="md:col-span-7">
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[color:var(--muted)] shadow-[var(--shadow)]">
@@ -278,7 +278,10 @@ export default async function HomePage() {
 
             <div className="md:col-span-5">
               <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow)]">
-                <div data-reveal className="relative overflow-hidden rounded-3xl">
+                <div
+                  data-reveal
+                  className="relative isolate overflow-hidden rounded-3xl [transform:translateZ(0)]"
+                >
                   <div
                     data-parallax
                     data-parallax-speed="0.18"
@@ -293,10 +296,12 @@ export default async function HomePage() {
                       height={1100}
                       priority
                       sizes="(max-width: 768px) 100vw, 42vw"
-                      className="h-[340px] w-full object-cover md:h-[420px] [transform:translateZ(0)]"
+                      className="h-[340px] w-full object-cover md:h-[420px] [transform:translateZ(0)] [backface-visibility:hidden]"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/55 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_-60px_120px_rgba(255,255,255,0.65)]" />
 
                   <div className="absolute bottom-4 left-4 right-4 grid gap-3">
                     <div className="grid grid-cols-3 gap-3">
@@ -361,7 +366,7 @@ export default async function HomePage() {
       </section>
 
       <section className="relative">
-        <div className="mx-auto max-w-6xl px-6 pb-12">
+        <div className="mx-auto max-w-7xl px-6 pb-12">
           <div className="grid gap-4 md:grid-cols-4">
             {VALUE_PROPS.map((item, index) => (
               <div
@@ -383,7 +388,7 @@ export default async function HomePage() {
       </section>
 
       <section id="bilder" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 pb-12">
+        <div className="mx-auto max-w-7xl px-6 pb-12">
           <SectionHeader
             kicker="Impressionen"
             title="Zeig Vertrauen. Zeig Qualität."
@@ -472,7 +477,7 @@ export default async function HomePage() {
       </section>
 
       <section id="leistungen" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <SectionHeader
             kicker="Leistungen"
             title="Leistungen, die Ergebnisse liefern."
@@ -508,7 +513,7 @@ export default async function HomePage() {
       </section>
 
       <section id="ablauf" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <div className="grid gap-10 md:grid-cols-12">
             <div className="md:col-span-5">
               <SectionHeader
@@ -546,8 +551,8 @@ export default async function HomePage() {
       </section>
 
       <section className="relative">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <div className="group relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow)]">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+          <div className="group relative isolate overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow)] [transform:translateZ(0)]">
             <div data-reveal className="relative">
               <div
                 data-parallax
@@ -557,16 +562,17 @@ export default async function HomePage() {
                 data-zoom-to="1.06"
               >
                 <Image
-                  src={HOME_IMAGES.hero}
+                  src={HOME_IMAGES.firstAid}
                   alt="Impressionen"
                   width={1600}
                   height={1100}
                   sizes="(max-width: 768px) 100vw, 1000px"
-                  className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.02] md:h-[360px] [transform:translateZ(0)]"
+                  className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.02] md:h-[360px] [transform:translateZ(0)] [backface-visibility:hidden]"
                 />
               </div>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/65 to-white/25" />
+            <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
             <div className="absolute inset-0 flex items-end">
               <div className="w-full p-6 md:p-10">
                 <div className="max-w-xl">
@@ -604,7 +610,7 @@ export default async function HomePage() {
       </section>
 
       <section id="kunden" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <SectionHeader
             kicker="Kunden & Partner"
             title="Namen, die Vertrauen schaffen."
@@ -635,7 +641,7 @@ export default async function HomePage() {
       </section>
 
       <section id="beitraege" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <SectionHeader
             kicker="Blog"
             title="Das passiert bei uns."
@@ -647,7 +653,7 @@ export default async function HomePage() {
       </section>
 
       <section id="kontakt" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <div className="rounded-3xl border border-[var(--border)] bg-[linear-gradient(180deg,var(--surface)_0%,var(--surface-2)_100%)] p-8 shadow-[var(--shadow)] md:p-10">
             <div className="grid items-start gap-8 lg:grid-cols-12">
               <div className="lg:col-span-4">
