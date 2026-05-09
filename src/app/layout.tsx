@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   description:
     "Personalvermittlung im Rettungsdienst (Börse) in Dortmund · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  icons: {
+    icon: [{ url: "/logo/Logo.png", type: "image/png" }],
+    apple: [{ url: "/logo/Logo.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
