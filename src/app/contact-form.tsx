@@ -164,6 +164,22 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
 
   const requiredOk = Boolean(sanitize(form.name) && sanitize(form.email) && form.privacyConsent);
   const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
+  const recaptchaSiteKey = String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "").trim();
+
+  async function recaptchaToken(action: string): Promise<string> {
+    if (!recaptchaSiteKey) return "";
+    const grecaptcha = (window as unknown as { grecaptcha?: { ready: (fn: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } })
+      .grecaptcha;
+    if (!grecaptcha?.ready || !grecaptcha.execute) return "";
+    return await new Promise<string>((resolve) => {
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(recaptchaSiteKey, { action })
+          .then((t) => resolve(String(t ?? "")))
+          .catch(() => resolve(""));
+      });
+    });
+  }
 
   async function submitToPortal() {
     setSubmitting(true);
@@ -195,6 +211,9 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
                 }
               : {};
 
+      const recaptchaAction = "contact_inquiry";
+      const token = await recaptchaToken(recaptchaAction);
+
       const res = await fetch(`${portalUrl}/api/public/contact-inquiries`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -209,6 +228,8 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           details,
           privacyConsent: form.privacyConsent,
           sourceUrl: window.location.href,
+          recaptchaToken: token,
+          recaptchaAction,
         }),
       });
       const json = (await res.json().catch(() => null)) as { ok?: boolean } | null;
