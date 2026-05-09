@@ -179,9 +179,9 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
   const recaptchaSiteKey = String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "").trim();
   const inputClass =
-    "h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
+    "h-11 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
   const textareaClass =
-    "rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
+    "w-full rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
 
   async function recaptchaToken(action: string): Promise<string> {
     if (!recaptchaSiteKey) return "";
