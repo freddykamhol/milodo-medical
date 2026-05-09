@@ -650,7 +650,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
           <div className="rounded-3xl border border-[var(--border)] bg-[linear-gradient(180deg,var(--surface)_0%,var(--surface-2)_100%)] p-8 shadow-[var(--shadow)] md:p-10">
             <div className="grid items-start gap-8 lg:grid-cols-12">
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-4">
                 <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
                   Kurze Anfrage. Schnelle Antwort.
                 </h2>
@@ -669,7 +669,7 @@ export default async function HomePage() {
                   </a>
                 </div>
               </div>
-              <div className="min-w-0 lg:col-span-7">
+              <div className="min-w-0 lg:col-span-8">
                 <ContactForm toEmail={CONTACT_EMAIL} />
               </div>
             </div>
