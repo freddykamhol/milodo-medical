@@ -165,6 +165,10 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   const requiredOk = Boolean(sanitize(form.name) && sanitize(form.email) && form.privacyConsent);
   const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
   const recaptchaSiteKey = String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "").trim();
+  const inputClass =
+    "h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
+  const textareaClass =
+    "rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
 
   async function recaptchaToken(action: string): Promise<string> {
     if (!recaptchaSiteKey) return "";
@@ -267,59 +271,102 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
 
   return (
     <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow)] md:p-8">
-      <div className="text-sm font-semibold tracking-tight text-[var(--foreground)]">
-        Anfrageformular
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div className="text-sm font-semibold tracking-tight text-[var(--foreground)]">Anfrageformular</div>
+          <p className="mt-1 text-sm leading-relaxed text-[color:var(--muted)]">
+            Wähle das Anliegen aus und sende uns die wichtigsten Infos. Wir melden uns zeitnah zurück.
+          </p>
+        </div>
+        <div className="text-xs text-[color:var(--muted)]">* Pflichtfelder</div>
       </div>
-      <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
-        Wähle das Anliegen aus und sende uns die wichtigsten Infos. Wir melden
-        uns zeitnah zurück.
-      </p>
 
-      <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-4">
+      <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-3 md:p-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-4">
         <button
           type="button"
           onClick={() => set("mode", "eh")}
           className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "eh"
-              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface-2)] text-[var(--foreground)]"
-              : "border-[var(--border)] bg-[var(--surface)] text-[color:var(--muted)] hover:bg-[var(--surface-2)]"
+              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
+              : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
           }`}
         >
-          EH-Ausbildung
+          <div className="flex items-center justify-between gap-2">
+            <span>EH-Ausbildung</span>
+            {form.mode === "eh" ? (
+              <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
+                Auswahl
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Betriebliche Kurse & Inhouse</div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "sanitaet")}
           className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "sanitaet"
-              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface-2)] text-[var(--foreground)]"
-              : "border-[var(--border)] bg-[var(--surface)] text-[color:var(--muted)] hover:bg-[var(--surface-2)]"
+              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
+              : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
           }`}
         >
-          Sanitätsdienst
+          <div className="flex items-center justify-between gap-2">
+            <span>Sanitätsdienst</span>
+            {form.mode === "sanitaet" ? (
+              <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
+                Auswahl
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Events, Firmen & Sport</div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "boerse")}
           className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "boerse"
-              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface-2)] text-[var(--foreground)]"
-              : "border-[var(--border)] bg-[var(--surface)] text-[color:var(--muted)] hover:bg-[var(--surface-2)]"
+              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
+              : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
           }`}
         >
-          Personal (Börse)
+          <div className="flex items-center justify-between gap-2">
+            <span>Personal (Börse)</span>
+            {form.mode === "boerse" ? (
+              <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
+                Auswahl
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Schichten & kurzfristige Einsätze</div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "kontakt")}
           className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "kontakt"
-              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface-2)] text-[var(--foreground)]"
-              : "border-[var(--border)] bg-[var(--surface)] text-[color:var(--muted)] hover:bg-[var(--surface-2)]"
+              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
+              : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
           }`}
         >
-          Kontakt
+          <div className="flex items-center justify-between gap-2">
+            <span>Kontakt</span>
+            {form.mode === "kontakt" ? (
+              <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
+                Auswahl
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Allgemeine Anfrage</div>
         </button>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="flex items-center gap-3">
+          <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Kontaktdaten</div>
+          <div className="h-px flex-1 bg-[var(--border)]" />
+        </div>
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -330,7 +377,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           <input
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
-            className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+            className={inputClass}
             autoComplete="name"
             placeholder="Vor- und Nachname"
           />
@@ -342,7 +389,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           <input
             value={form.company}
             onChange={(e) => set("company", e.target.value)}
-            className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+            className={inputClass}
             autoComplete="organization"
             placeholder="Unternehmen / Organisation"
           />
@@ -355,7 +402,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             type="email"
             value={form.email}
             onChange={(e) => set("email", e.target.value)}
-            className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+            className={inputClass}
             autoComplete="email"
             inputMode="email"
             placeholder="name@firma.de"
@@ -369,7 +416,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             type="tel"
             value={form.phone}
             onChange={(e) => set("phone", e.target.value)}
-            className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+            className={inputClass}
             autoComplete="tel"
             inputMode="tel"
             placeholder="+49 …"
@@ -378,7 +425,12 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       </div>
 
       {form.mode === "eh" ? (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
+          <div className="flex items-center gap-3">
+            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details EH-Ausbildung</div>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1 sm:col-span-2">
             <span className="text-xs font-semibold text-[color:var(--muted)]">
               Zielgruppe
@@ -386,7 +438,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.targetGroup}
               onChange={(e) => set("targetGroup", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="z.B. Betrieb, Praxis-Team, Pflege-Team"
             />
           </label>
@@ -397,7 +449,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.trainingDate}
               onChange={(e) => set("trainingDate", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="TT.MM.JJJJ"
             />
           </label>
@@ -408,7 +460,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.participantCount}
               onChange={(e) => set("participantCount", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               inputMode="numeric"
               placeholder="z.B. 12"
             />
@@ -420,15 +472,21 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.trainingLocation}
               onChange={(e) => set("trainingLocation", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="Adresse / Standort"
             />
           </label>
+          </div>
         </div>
       ) : null}
 
       {form.mode === "sanitaet" ? (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
+          <div className="flex items-center gap-3">
+            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details Sanitätsdienst</div>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1">
             <span className="text-xs font-semibold text-[color:var(--muted)]">
               Art der Veranstaltung
@@ -436,7 +494,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.eventType}
               onChange={(e) => set("eventType", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="z.B. Konzert, Sport, Firmenfeier"
             />
           </label>
@@ -447,7 +505,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.eventDate}
               onChange={(e) => set("eventDate", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="TT.MM.JJJJ"
             />
           </label>
@@ -458,7 +516,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.eventLocation}
               onChange={(e) => set("eventLocation", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="Adresse / Location"
             />
           </label>
@@ -469,7 +527,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.attendees}
               onChange={(e) => set("attendees", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               inputMode="numeric"
               placeholder="z.B. 500"
             />
@@ -481,15 +539,21 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.eventDuration}
               onChange={(e) => set("eventDuration", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="z.B. 14:00–23:00"
             />
           </label>
+          </div>
         </div>
       ) : null}
 
       {form.mode === "boerse" ? (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
+          <div className="flex items-center gap-3">
+            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details Personal (Börse)</div>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1">
             <span className="text-xs font-semibold text-[color:var(--muted)]">
               Zeitraum von
@@ -497,7 +561,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.shiftDateFrom}
               onChange={(e) => set("shiftDateFrom", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="TT.MM.JJJJ"
             />
           </label>
@@ -508,7 +572,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.shiftDateTo}
               onChange={(e) => set("shiftDateTo", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="TT.MM.JJJJ"
             />
           </label>
@@ -519,7 +583,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.shiftLocation}
               onChange={(e) => set("shiftLocation", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="Dortmund (optional genaue Adresse)"
             />
           </label>
@@ -530,7 +594,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.qualification}
               onChange={(e) => set("qualification", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               placeholder="z.B. RS/RA/NFS"
             />
           </label>
@@ -541,23 +605,25 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             <input
               value={form.staffCount}
               onChange={(e) => set("staffCount", e.target.value)}
-              className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+              className={inputClass}
               inputMode="numeric"
               placeholder="z.B. 2"
             />
           </label>
+          </div>
         </div>
       ) : null}
 
-      <div className="mt-6 grid gap-1">
-        <span className="text-xs font-semibold text-[color:var(--muted)]">
-          Nachricht
-        </span>
+      <div className="mt-6">
+        <div className="flex items-center gap-3">
+          <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Nachricht</div>
+          <div className="h-px flex-1 bg-[var(--border)]" />
+        </div>
         <textarea
           value={form.message}
           onChange={(e) => set("message", e.target.value)}
           rows={4}
-          className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4"
+          className={`mt-4 ${textareaClass}`}
           placeholder="Kurz beschreiben, worum es geht …"
         />
       </div>
@@ -577,8 +643,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="grid gap-2">
-          <div className="text-xs text-[color:var(--muted)]">* Pflichtfelder</div>
-          <label className="flex items-start gap-2 text-xs text-[color:var(--muted)]">
+          <label className="flex items-start gap-2 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-xs text-[color:var(--muted)]">
             <input
               type="checkbox"
               className="mt-0.5 h-4 w-4 rounded border border-[var(--border)] accent-[var(--accent)]"
