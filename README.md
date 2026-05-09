@@ -17,6 +17,11 @@ npm run build
 npm run start
 ```
 
+### Node version (Plesk)
+
+- Plesk nutzt häufig `nodenv` und liest eine `.node-version`. Da auf Shared-Hosting nicht immer jede Patch-Version verfügbar ist, ist in diesem Repo bewusst **keine** `.node-version` hinterlegt.
+- Wähle die Node.js-Version stattdessen in Plesk (Node.js Extension/App Settings). Empfehlung: **Node 20 LTS**.
+
 ### Env checklist
 
 - `NEXT_PUBLIC_SITE_URL` (Prod-URL, z.B. `https://…`)
