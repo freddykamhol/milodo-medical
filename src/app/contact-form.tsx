@@ -282,11 +282,11 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       </div>
 
       <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-3 md:p-4">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <button
           type="button"
           onClick={() => set("mode", "eh")}
-          className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
+          className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "eh"
               ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
               : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
@@ -300,12 +300,14 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               </span>
             ) : null}
           </div>
-          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Betriebliche Kurse & Inhouse</div>
+          <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">
+            Betriebliche Kurse & Inhouse
+          </div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "sanitaet")}
-          className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
+          className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "sanitaet"
               ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
               : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
@@ -319,12 +321,12 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               </span>
             ) : null}
           </div>
-          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Events, Firmen & Sport</div>
+          <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">Events, Firmen & Sport</div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "boerse")}
-          className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
+          className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "boerse"
               ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
               : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
@@ -338,12 +340,14 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               </span>
             ) : null}
           </div>
-          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Schichten & kurzfristige Einsätze</div>
+          <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">
+            Schichten & kurzfristige Einsätze
+          </div>
         </button>
         <button
           type="button"
           onClick={() => set("mode", "kontakt")}
-          className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
+          className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "kontakt"
               ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
               : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
@@ -357,7 +361,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               </span>
             ) : null}
           </div>
-          <div className="mt-1 text-xs font-medium text-[color:var(--muted)]">Allgemeine Anfrage</div>
+          <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">Allgemeine Anfrage</div>
         </button>
         </div>
       </div>
