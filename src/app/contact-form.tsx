@@ -47,6 +47,25 @@ function buildMailto(toEmail: string, subject: string, body: string) {
   return `mailto:${encodeURIComponent(toEmail)}?${query}`;
 }
 
+function RequiredIcon(props: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={props.className ?? "h-3.5 w-3.5 text-red-500"}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 3v18" />
+      <path d="M4.2 7.5l15.6 9" />
+      <path d="M19.8 7.5l-15.6 9" />
+    </svg>
+  );
+}
+
 export default function ContactForm(props: { toEmail: string; initialMode?: Mode }) {
   const [form, setForm] = useState<FormState>({
     mode: props.initialMode ?? "kontakt",
@@ -278,7 +297,10 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             Wähle das Anliegen aus und sende uns die wichtigsten Infos. Wir melden uns zeitnah zurück.
           </p>
         </div>
-        <div className="text-xs text-[color:var(--muted)]">* Pflichtfelder</div>
+        <div className="inline-flex items-center gap-2 text-xs text-[color:var(--muted)]">
+          <RequiredIcon className="h-3.5 w-3.5 text-red-500" />
+          Pflichtfelder
+        </div>
       </div>
 
       <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-3 md:p-4">
@@ -375,8 +397,8 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         <label className="grid gap-1">
-          <span className="text-xs font-semibold text-[color:var(--muted)]">
-            Name *
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[color:var(--muted)]">
+            Name <RequiredIcon />
           </span>
           <input
             value={form.name}
@@ -399,8 +421,8 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           />
         </label>
         <label className="grid gap-1">
-          <span className="text-xs font-semibold text-[color:var(--muted)]">
-            E-Mail *
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[color:var(--muted)]">
+            E-Mail <RequiredIcon />
           </span>
           <input
             type="email"
