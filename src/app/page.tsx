@@ -12,10 +12,10 @@ const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
 
 const HOME_IMAGES = {
-  hero: "/images/home/hero.svg",
-  borse: "/images/home/borse.svg",
-  firstAid: "/images/home/erste-hilfe.svg",
-  sanitaet: "/images/home/sanitaetsdienst.svg",
+  hero: "/images/home/hero.png",
+  borse: "/images/home/boerse.png",
+  firstAid: "/images/home/erste-hilfe.png",
+  sanitaet: "/images/home/sanitaetsdienst.png",
 } as const;
 
 const CLIENTS = [
@@ -284,7 +284,7 @@ export default async function HomePage() {
                     data-parallax-speed="0.18"
                     data-zoom
                     data-zoom-from="1.08"
-                    data-zoom-to="1"
+                    data-zoom-to="1.04"
                   >
                     <Image
                       src={HOME_IMAGES.hero}
@@ -293,10 +293,10 @@ export default async function HomePage() {
                       height={1100}
                       priority
                       sizes="(max-width: 768px) 100vw, 42vw"
-                      className="h-[340px] w-full object-cover md:h-[420px]"
+                      className="h-[340px] w-full object-cover md:h-[420px] [transform:translateZ(0)]"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/92 via-white/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent" />
 
                   <div className="absolute bottom-4 left-4 right-4 grid gap-3">
                     <div className="grid grid-cols-3 gap-3">
@@ -554,7 +554,7 @@ export default async function HomePage() {
                 data-parallax-speed="0.22"
                 data-zoom
                 data-zoom-from="1.16"
-                data-zoom-to="1.02"
+                data-zoom-to="1.06"
               >
                 <Image
                   src={HOME_IMAGES.hero}
@@ -562,11 +562,11 @@ export default async function HomePage() {
                   width={1600}
                   height={1100}
                   sizes="(max-width: 768px) 100vw, 1000px"
-                  className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.02] md:h-[360px]"
+                  className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.02] md:h-[360px] [transform:translateZ(0)]"
                 />
               </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/55 to-white/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/65 to-white/25" />
             <div className="absolute inset-0 flex items-end">
               <div className="w-full p-6 md:p-10">
                 <div className="max-w-xl">
