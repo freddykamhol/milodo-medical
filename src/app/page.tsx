@@ -302,7 +302,7 @@ export default async function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/55 to-transparent" />
                   <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
                   <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_-60px_120px_rgba(255,255,255,0.65)]" />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_14%,rgba(255,255,255,0)_86%,rgba(255,255,255,1)_100%)]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0.85)_10%,rgba(255,255,255,0)_36%)]" />
 
                   <div className="absolute bottom-4 left-4 right-4 grid gap-3">
                     <div className="grid grid-cols-3 gap-3">
@@ -574,7 +574,7 @@ export default async function HomePage() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/65 to-white/25" />
             <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_14%,rgba(255,255,255,0)_86%,rgba(255,255,255,1)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0.85)_10%,rgba(255,255,255,0)_36%)]" />
             <div className="absolute inset-0 flex items-end">
               <div className="w-full p-6 md:p-10">
                 <div className="max-w-xl">
