@@ -41,12 +41,18 @@ export default function ScrollFx() {
       if (prefersReducedMotion) return;
       for (const element of parallaxElements) {
         const rect = element.getBoundingClientRect();
+        const computed = window.getComputedStyle(element);
+        const zoomScale = Number.parseFloat(computed.getPropertyValue("--zoom-scale")) || 1;
+        // Prevent “seams” by ensuring translateY never exceeds the extra pixels gained from scaling.
+        // With scale S, extra height is (S-1)*H; half is available on top/bottom as bleed.
+        const bleed = Math.max(0, (zoomScale - 1) * rect.height * 0.5);
+        const maxTranslate = Math.max(0, bleed - 2);
         const speedAttr = element.getAttribute("data-parallax-speed");
         const speed = speedAttr ? Number(speedAttr) : 0.14;
         const center = rect.top + rect.height / 2;
         const viewportCenter = window.innerHeight / 2;
         const distance = center - viewportCenter;
-        const y = clamp(-distance * speed, -42, 42);
+        const y = clamp(-distance * speed, -maxTranslate, maxTranslate);
         element.style.setProperty("--parallax-y", `${y.toFixed(2)}px`);
       }
     };
