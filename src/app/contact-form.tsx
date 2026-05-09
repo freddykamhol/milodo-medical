@@ -298,7 +298,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       </div>
 
       <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-3 md:p-4">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <button
           type="button"
           onClick={() => set("mode", "eh")}

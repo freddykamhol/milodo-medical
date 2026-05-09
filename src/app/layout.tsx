@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 
 import "./globals.css";
 import SiteFooter from "./site-footer";
 import SiteHeader from "./site-header";
+import CookieConsent from "./cookie-consent";
+import RecaptchaScript from "./recaptcha-script";
 import { legalEntityFromEnv } from "@/lib/legal";
 
 export const metadata: Metadata = {
@@ -60,12 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de">
       <body>
-        {recaptchaSiteKey ? (
-          <Script
-            src={`https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(recaptchaSiteKey)}`}
-            strategy="afterInteractive"
-          />
-        ) : null}
+        {recaptchaSiteKey ? <RecaptchaScript siteKey={recaptchaSiteKey} /> : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -74,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader variant="page" />
         {children}
         <SiteFooter contactEmail={contactEmail} />
+        <CookieConsent />
       </body>
     </html>
   );

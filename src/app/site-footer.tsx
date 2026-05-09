@@ -77,6 +77,9 @@ export default function SiteFooter(props: { contactEmail?: string }) {
               <Link className="hover:text-[var(--foreground)]" href="/beitraege">
                 Alle Beiträge
               </Link>
+              <Link className="hover:text-[var(--foreground)]" href="/cookies">
+                Cookie‑Info
+              </Link>
               <Link className="hover:text-[var(--foreground)]" href="/impressum">
                 Impressum
               </Link>
