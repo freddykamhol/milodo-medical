@@ -13,7 +13,7 @@ export default function DatenschutzPage() {
         { href: "#verantwortlicher", label: "Verantwortlicher" },
         { href: "#zwecke", label: "Zwecke & Rechtsgrundlagen" },
         { href: "#logs", label: "Server-Logfiles" },
-        { href: "#kontakt", label: "Kontakt (mailto)" },
+        { href: "#kontakt", label: "Kontaktformular" },
         { href: "#cookies", label: "Cookies/Tracking" },
         { href: "#empfaenger", label: "Empfänger" },
         { href: "#rechte", label: "Deine Rechte" },
@@ -49,8 +49,8 @@ export default function DatenschutzPage() {
             Interesse).
           </li>
           <li>
-            Kontaktaufnahme per E-Mail / Anfrageformular (mailto) zur Bearbeitung von Anfragen (Art. 6 Abs. 1 lit. b
-            DSGVO vorvertragliche Maßnahmen bzw. Art. 6 Abs. 1 lit. f DSGVO).
+            Kontaktaufnahme per Kontaktformular / E-Mail zur Bearbeitung von Anfragen (Art. 6 Abs. 1 lit. b DSGVO
+            vorvertragliche Maßnahmen bzw. Art. 6 Abs. 1 lit. f DSGVO).
           </li>
         </ul>
       </section>
@@ -69,17 +69,15 @@ export default function DatenschutzPage() {
       </section>
 
       <section id="kontakt" className="grid gap-3 text-sm leading-relaxed text-[color:var(--muted)]">
-        <h2 className="text-base font-semibold text-[var(--foreground)]">4. Kontaktaufnahme (mailto)</h2>
+        <h2 className="text-base font-semibold text-[var(--foreground)]">4. Kontaktformular</h2>
         <p>
-          Diese Website stellt ein Anfrageformular bereit, das beim Klick auf „Anfrage senden“ einen{" "}
-          <span className="font-mono">mailto:</span>-Link öffnet. Die eingegebenen Daten werden dabei nicht an einen
-          Server dieser Website übertragen, sondern in deinem E-Mail-Programm übernommen und über deinen E-Mail-Anbieter
-          versendet.
+          Wenn du uns über das Kontaktformular kontaktierst, werden die von dir eingegebenen Angaben (z.B. Name,
+          Kontaktdaten, Nachricht und ggf. Leistungsdetails) zum Zweck der Bearbeitung der Anfrage verarbeitet.
         </p>
         <p>
-          Wir verarbeiten die von dir übermittelten Angaben ausschließlich zur Bearbeitung deiner Anfrage und für
-          Anschlussfragen. Eine Weitergabe erfolgt nur, sofern dies zur Bearbeitung erforderlich ist oder eine
-          gesetzliche Verpflichtung besteht.
+          Die Übermittlung erfolgt an unser Portal zur internen Bearbeitung und wird parallel per E‑Mail an uns
+          zugestellt. Eine Weitergabe erfolgt nur, sofern dies zur Bearbeitung erforderlich ist oder eine gesetzliche
+          Verpflichtung besteht.
         </p>
       </section>
 

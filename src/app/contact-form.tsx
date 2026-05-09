@@ -11,6 +11,7 @@ type FormState = {
   email: string;
   phone: string;
   message: string;
+  website: string; // honeypot
   privacyConsent: boolean;
 
   // EH-Ausbildung
@@ -54,6 +55,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     email: "",
     phone: "",
     message: "",
+    website: "",
     privacyConsent: false,
 
     trainingDate: "",
@@ -73,6 +75,8 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     qualification: "",
     staffCount: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<null | "ok" | "error">(null);
 
   const subject = useMemo(() => {
     if (form.mode === "eh") return "Anforderung EH-Ausbildung";
@@ -159,6 +163,86 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   };
 
   const requiredOk = Boolean(sanitize(form.name) && sanitize(form.email) && form.privacyConsent);
+  const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
+
+  async function submitToPortal() {
+    setSubmitting(true);
+    setSubmitState(null);
+    try {
+      const details =
+        form.mode === "eh"
+          ? {
+              targetGroup: sanitize(form.targetGroup),
+              trainingDate: sanitize(form.trainingDate),
+              trainingLocation: sanitize(form.trainingLocation),
+              participantCount: sanitize(form.participantCount),
+            }
+          : form.mode === "sanitaet"
+            ? {
+                eventType: sanitize(form.eventType),
+                eventDate: sanitize(form.eventDate),
+                eventLocation: sanitize(form.eventLocation),
+                attendees: sanitize(form.attendees),
+                eventDuration: sanitize(form.eventDuration),
+              }
+            : form.mode === "boerse"
+              ? {
+                  shiftDateFrom: sanitize(form.shiftDateFrom),
+                  shiftDateTo: sanitize(form.shiftDateTo),
+                  shiftLocation: sanitize(form.shiftLocation),
+                  qualification: sanitize(form.qualification),
+                  staffCount: sanitize(form.staffCount),
+                }
+              : {};
+
+      const res = await fetch(`${portalUrl}/api/public/contact-inquiries`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          website: form.website,
+          mode: form.mode,
+          name: sanitize(form.name),
+          company: sanitize(form.company),
+          email: sanitize(form.email),
+          phone: sanitize(form.phone),
+          message: sanitize(form.message),
+          details,
+          privacyConsent: form.privacyConsent,
+          sourceUrl: window.location.href,
+        }),
+      });
+      const json = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+      if (!res.ok || !json?.ok) throw new Error("submit_failed");
+      setSubmitState("ok");
+      setForm((prev) => ({
+        ...prev,
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        message: "",
+        website: "",
+        trainingDate: "",
+        trainingLocation: "",
+        participantCount: "",
+        targetGroup: "",
+        eventType: "",
+        eventDate: "",
+        eventLocation: "",
+        attendees: "",
+        eventDuration: "",
+        shiftDateFrom: "",
+        shiftDateTo: "",
+        shiftLocation: "",
+        qualification: "",
+        staffCount: "",
+      }));
+    } catch {
+      setSubmitState("error");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow)] md:p-8">
@@ -457,6 +541,19 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         />
       </div>
 
+      <div className="hidden">
+        <label className="grid gap-1">
+          <span className="text-xs font-semibold text-[color:var(--muted)]">Website</span>
+          <input
+            value={form.website}
+            onChange={(e) => set("website", e.target.value)}
+            className="h-11 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none"
+            autoComplete="off"
+            tabIndex={-1}
+          />
+        </label>
+      </div>
+
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="grid gap-2">
           <div className="text-xs text-[color:var(--muted)]">* Pflichtfelder</div>
@@ -476,20 +573,34 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             </span>
           </label>
           <div className="text-[11px] leading-relaxed text-[color:var(--muted)]">
-            Hinweis: Beim Klick auf „Anfrage senden“ öffnet sich dein E-Mail-Programm (mailto). Die Übermittlung erfolgt
-            über deinen E-Mail-Anbieter.
+            Hinweis: Deine Angaben werden zur Bearbeitung der Anfrage an unser Portal übermittelt und parallel per
+            E‑Mail an uns gesendet.
           </div>
+          {submitState === "ok" ? (
+            <div className="text-xs font-semibold text-[color:var(--muted)]">
+              Danke! Deine Anfrage ist eingegangen.
+            </div>
+          ) : null}
+          {submitState === "error" ? (
+            <div className="text-xs text-red-600">
+              Versand fehlgeschlagen. Bitte versuche es erneut oder nutze{" "}
+              <a className="underline underline-offset-4" href={mailto}>
+                E‑Mail
+              </a>
+              .
+            </div>
+          ) : null}
         </div>
-        <a
+        <button
+          type="button"
+          disabled={!requiredOk || submitting}
+          onClick={submitToPortal}
           className={`inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow)] transition ${
-            requiredOk
-              ? "bg-[var(--accent)] hover:opacity-90"
-              : "bg-zinc-300 text-white/90 pointer-events-none"
+            requiredOk && !submitting ? "bg-[var(--accent)] hover:opacity-90" : "bg-zinc-300 text-white/90"
           }`}
-          href={mailto}
         >
-          Anfrage senden
-        </a>
+          {submitting ? "Sende…" : "Anfrage senden"}
+        </button>
       </div>
     </div>
   );
