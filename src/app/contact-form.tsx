@@ -231,6 +231,16 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       const recaptchaAction = "contact_inquiry";
       const token = await recaptchaToken(recaptchaAction);
 
+      if (recaptchaSiteKey) {
+        const verifyRes = await fetch("/api/recaptcha/verify", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ token, action: recaptchaAction }),
+        }).catch(() => null);
+        const verifyJson = (await verifyRes?.json().catch(() => null)) as { ok?: boolean } | null;
+        if (!verifyRes?.ok || !verifyJson?.ok) throw new Error("recaptcha_failed");
+      }
+
       const res = await fetch(`${portalUrl}/api/public/contact-inquiries`, {
         method: "POST",
         headers: { "content-type": "application/json" },
