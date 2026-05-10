@@ -12,7 +12,7 @@ export default function PostHero(props: {
 }) {
   return (
     <section className="relative">
-      <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
+      <div className="relative left-1/2 right-1/2 w-[100dvw] -ml-[50dvw] -mr-[50dvw]">
         <div className="relative h-[56vh] min-h-[420px] w-full overflow-hidden md:h-[68vh]">
           {props.coverImage ? (
             // eslint-disable-next-line @next/next/no-img-element

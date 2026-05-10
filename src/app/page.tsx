@@ -213,7 +213,7 @@ export default async function HomePage() {
   const latestPost = latestPosts[0];
   return (
     <main
-      className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]"
+      className="relative min-h-dvh overflow-x-clip bg-[var(--background)] text-[var(--foreground)]"
     >
       <ScrollFx />
       <div aria-hidden="true" className="scroll-progress" />
@@ -642,10 +642,10 @@ export default async function HomePage() {
           />
         </div>
 
-        <div
-          className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]"
-          data-reveal
-        >
+	        <div
+	          className="relative left-1/2 right-1/2 w-[100dvw] -ml-[50dvw] -mr-[50dvw]"
+	          data-reveal
+	        >
           <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
             <div
               className="logo-marquee-track flex w-max flex-nowrap items-center gap-3 px-6 py-4 [animation:logo-marquee_var(--marquee-duration,36s)_linear_infinite]"
