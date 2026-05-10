@@ -1,6 +1,9 @@
 import { legalEntityFromEnv } from "@/lib/legal";
 import LegalPage from "@/app/components/legal-page";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function DatenschutzPage() {
   const legal = legalEntityFromEnv();
   const lastUpdated = String(process.env.NEXT_PUBLIC_PRIVACY_LAST_UPDATED ?? "").trim() || "—";

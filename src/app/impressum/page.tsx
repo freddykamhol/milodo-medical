@@ -1,6 +1,9 @@
 import { legalEntityFromEnv } from "@/lib/legal";
 import LegalPage from "@/app/components/legal-page";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function ImpressumPage() {
   const legal = legalEntityFromEnv();
 
