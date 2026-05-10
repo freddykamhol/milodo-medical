@@ -10,7 +10,9 @@ export default function ImpressumPage() {
   return (
     <LegalPage
       title="Impressum"
-      lead="Pflichtangaben nach § 5 DDG und § 18 Abs. 2 MStV. Bitte ergänze fehlende Angaben (mit „—“ gekennzeichnet) vor dem Launch. Tipp: In Umgebungsvariablen kann die Anschrift mit \"\\n\" umgebrochen werden."
+      lead={
+        'Pflichtangaben nach § 5 DDG und § 18 Abs. 2 MStV. Bitte ergänze fehlende Angaben (mit „—“ gekennzeichnet) vor dem Launch. Tipp: In Umgebungsvariablen kann die Anschrift mit "\\n" umgebrochen werden.'
+      }
       toc={[
         { href: "#anbieter", label: "Anbieter" },
         { href: "#vertretung", label: "Vertretung" },
