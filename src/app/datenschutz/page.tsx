@@ -140,17 +140,21 @@ export default function DatenschutzPage() {
           Auftragsverarbeiter eingesetzt werden. In diesen Fällen bestehen Verträge zur Auftragsverarbeitung (Art. 28
           DSGVO).
         </p>
-        <ul className="list-disc pl-5">
-          <li>
-            Hosting/Serverbetrieb (Anbieter: — bitte ergänzen, z.B. „Plesk/Hosting-Provider“). Website:{" "}
-            <span className="font-mono">{siteUrl}</span>
-          </li>
-          <li>
-            Portal zur Bearbeitung von Anfragen: <span className="font-mono">{portalUrl}</span>
-          </li>
-          <li>Google Ireland Limited (reCAPTCHA), sofern aktiviert.</li>
-        </ul>
-      </section>
+	        <ul className="list-disc pl-5">
+	          <li>
+	            Hosting/Serverbetrieb: netcup GmbH, Emmy‑Noether‑Straße 10, 76131 Karlsruhe, Deutschland. Website:{" "}
+	            <span className="font-mono">{siteUrl}</span> (Serverstandort i.d.R. Nürnberg, Deutschland).
+	          </li>
+	          <li>
+	            Portal zur Bearbeitung von Anfragen: <span className="font-mono">{portalUrl}</span>
+	          </li>
+	          <li>Google Ireland Limited (reCAPTCHA), sofern aktiviert.</li>
+	        </ul>
+	        <p>
+	          Soweit erforderlich, wurde mit dem Hosting-Anbieter ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO)
+	          geschlossen.
+	        </p>
+	      </section>
 
       <section id="drittland" className="grid gap-3 text-sm leading-relaxed text-[color:var(--muted)]">
         <h2 className="text-base font-semibold text-[var(--foreground)]">8. Datenübermittlung in Drittländer</h2>
