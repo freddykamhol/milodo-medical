@@ -1,7 +1,13 @@
 type OptionalString = string | undefined | null;
 
 function clean(value: OptionalString): string | null {
-  const v = String(value ?? "").trim();
+  const v = String(value ?? "")
+    .trim()
+    // Some hosts (e.g. Plesk) store multiline env values as escaped sequences.
+    // Convert literal "\n" into real newlines so `whitespace-pre-line` renders properly.
+    .replaceAll("\\r\\n", "\n")
+    .replaceAll("\\n", "\n")
+    .replaceAll("\\r", "");
   return v ? v : null;
 }
 
@@ -32,4 +38,3 @@ export function legalEntityFromEnv(): LegalEntity {
     dpoContact: clean(process.env.NEXT_PUBLIC_DPO_CONTACT),
   };
 }
-
