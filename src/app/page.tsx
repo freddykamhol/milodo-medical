@@ -346,24 +346,37 @@ export default async function HomePage() {
 	                          className="logo-marquee-track flex w-max flex-nowrap items-center gap-5 px-4 py-2 [animation:logo-marquee_var(--marquee-duration,20s)_linear_infinite]"
 	                          style={{ ["--marquee-duration" as string]: "20s" }}
 	                        >
-	                          {[0, 1].map((index) => (
-	                            <Link
-	                              key={index}
-	                              href={latestPost ? `/beitraege/${latestPost.slug}` : "/beitraege"}
-	                              className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
-	                            >
-	                              <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--accent)_30%,var(--border))] bg-[color-mix(in_oklab,var(--accent)_10%,white)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
-	                                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-	                                Aktuell:
-	                              </span>
-	                              <span className="max-w-[420px] truncate">
-	                                {latestPost?.title ?? "Neue Beiträge folgen in Kürze"}
-	                              </span>
-	                              <span aria-hidden="true" className="text-[color:var(--muted)]">
-	                                →
-	                              </span>
-	                            </Link>
-	                          ))}
+	                          <Link
+	                            href={latestPost ? `/beitraege/${latestPost.slug}` : "/beitraege"}
+	                            className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
+	                          >
+	                            <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--accent)_30%,var(--border))] bg-[color-mix(in_oklab,var(--accent)_10%,white)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
+	                              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+	                              Aktuell:
+	                            </span>
+	                            <span className="max-w-[420px] truncate">
+	                              {latestPost?.title ?? "Neue Beiträge folgen in Kürze"}
+	                            </span>
+	                            <span aria-hidden="true" className="text-[color:var(--muted)]">
+	                              →
+	                            </span>
+	                          </Link>
+	                          <span
+	                            aria-hidden="true"
+	                            className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color-mix(in_oklab,var(--foreground)_18%,transparent)]"
+	                          />
+	                          <Link
+	                            href="/beitraege"
+	                            className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
+	                          >
+	                            <span className="rounded-full border border-[var(--border)] bg-white/60 px-2.5 py-1 text-[11px] font-semibold text-[color:var(--muted)] backdrop-blur">
+	                              Blog
+	                            </span>
+	                            <span>Alle Beiträge ansehen</span>
+	                            <span aria-hidden="true" className="text-[color:var(--muted)]">
+	                              →
+	                            </span>
+	                          </Link>
 	                        </div>
 	                      </div>
 	                    </div>
