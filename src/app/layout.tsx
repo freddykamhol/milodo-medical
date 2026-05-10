@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="de">
-      <body className="min-h-dvh overflow-x-clip">
+      <body className="min-h-dvh">
         {recaptchaSiteKey ? <RecaptchaScript siteKey={recaptchaSiteKey} /> : null}
         <script
           type="application/ld+json"

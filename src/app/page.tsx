@@ -213,7 +213,7 @@ export default async function HomePage() {
   const latestPost = latestPosts[0];
   return (
     <main
-      className="relative min-h-dvh overflow-x-clip bg-[var(--background)] text-[var(--foreground)]"
+      className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]"
     >
       <ScrollFx />
       <div aria-hidden="true" className="scroll-progress" />
