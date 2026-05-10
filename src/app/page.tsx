@@ -642,14 +642,11 @@ export default async function HomePage() {
           />
         </div>
 
-	        <div
-	          className="relative left-1/2 right-1/2 w-[100dvw] -ml-[50dvw] -mr-[50dvw] overflow-x-clip"
-	          data-reveal
-	        >
-          <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
-            <div
-              className="logo-marquee-track flex w-max flex-nowrap items-center gap-3 px-6 py-4 [animation:logo-marquee_var(--marquee-duration,36s)_linear_infinite]"
-              style={{ ["--marquee-duration" as string]: "36s" }}
+	        <div className="w-full" data-reveal>
+	          <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
+	            <div
+	              className="logo-marquee-track flex w-max flex-nowrap items-center gap-3 px-6 py-4 [animation:logo-marquee_var(--marquee-duration,36s)_linear_infinite]"
+	              style={{ ["--marquee-duration" as string]: "36s" }}
             >
               {[...CLIENTS, ...CLIENTS].map((name, index) => (
                 <div
