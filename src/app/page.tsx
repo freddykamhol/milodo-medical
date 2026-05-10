@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { CSSProperties } from "react";
 
 import ContactForm from "./contact-form";
@@ -9,7 +10,7 @@ import { getLatestBlogPostsMeta } from "@/lib/blog";
 export const runtime = "nodejs";
 
 const CONTACT_EMAIL =
-  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "info@milodo-medical.de";
 
 const HOME_IMAGES = {
   hero: "/images/home/hero2.png",
@@ -90,7 +91,7 @@ const SERVICES = [
   {
     title: "Personalvermittlung (Börse) – Rettungsdienst",
     description:
-      "Wenn Schichten offen bleiben, zählt Tempo: Wir vermitteln kurzfristig passendes Personal für den Rettungsdienst – innerhalb Dortmunds, klar abgestimmt und zuverlässig umgesetzt.",
+      "Wenn Schichten offen bleiben, zählt Tempo: Wir vermitteln kurzfristig passendes Personal für den Rettungsdienst – in NRW, klar abgestimmt und zuverlässig umgesetzt.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -143,9 +144,9 @@ const SERVICES = [
 
 const VALUE_PROPS = [
   {
-    title: "Fokus Dortmund",
+    title: "Fokus NRW",
     description:
-      "Kurze Wege, klare Abläufe: Wir sind auf Dortmund ausgerichtet und reagieren schnell.",
+      "Kurze Wege, klare Abläufe: Wir sind auf NRW ausgerichtet und reagieren schnell.",
   },
   {
     title: "Praxisnah im Team",
@@ -168,7 +169,7 @@ const STEPS = [
   {
     title: "Unverbindlich anfragen",
     description:
-      "Sag uns kurz, was du brauchst: Thema, Zielgruppe (Betrieb/Praxis/Pflege), Ort (Dortmund) und Umfang.",
+      "Sag uns kurz, was du brauchst: Thema, Zielgruppe (Betrieb/Praxis/Pflege), Ort (NRW) und Umfang.",
   },
   {
     title: "Schnell matchen",
@@ -209,6 +210,7 @@ function SectionHeader(props: {
 
 export default async function HomePage() {
   const latestPosts = await getLatestBlogPostsMeta(7);
+  const latestPost = latestPosts[0];
   return (
     <main
       className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]"
@@ -229,20 +231,20 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-6 pb-10 pt-10 md:pb-14 md:pt-14">
           <div className="grid items-center gap-10 md:grid-cols-12">
             <div data-reveal className="md:col-span-7">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[color:var(--muted)] shadow-[var(--shadow)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                Betriebliche Erste Hilfe · Notfalltraining · Dortmund
-              </div>
+	              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[color:var(--muted)] shadow-[var(--shadow)]">
+	                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+	                Betriebliche Erste Hilfe · Notfalltraining · NRW
+	              </div>
               <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight md:text-6xl">
                 Sicher handeln im{" "}
                 <span className="text-[var(--accent)]">Notfall</span>.
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--muted)] md:text-lg">
-                Wir schulen Teams praxisnah: betriebliche
-                Erste-Hilfe-Ausbildung und Notfalltrainings für Arztpraxen sowie
-                Pflegeeinrichtungen. Zusätzlich unterstützen wir bei
-                Personallücken im Rettungsdienst (Börse) und mit Sanitätsdienst
-                bei Veranstaltungen.
+                Wir unterstützen Unternehmen, Einrichtungen und Veranstalter in ganz NRW mit zuverlässigen medizinischen Dienstleistungen und praxisnahen Schulungskonzepten.
+                <br />Wir sorgen dafür, dass Teams im Notfall wissen, was zu tun ist – mit betrieblicher Erste-Hilfe-Ausbildung und individuell angepassten Notfalltrainings für Arztpraxen, Pflegeeinrichtungen und Unternehmen.
+                <br />Darüber hinaus unterstützen wir Rettungsdienste und Krankentransporte bei kurzfristigen oder planbaren Personallücken durch unser Netzwerk qualifizierter Fachkräfte. Auch bei Veranstaltungen stehen wir Ihnen mit professionellen Sanitätsdiensten zur Seite – zuverlässig, strukturiert und persönlich betreut.
+                <br />Unser Anspruch ist es, nicht einfach nur eine Dienstleistung anzubieten, sondern echte Entlastung zu schaffen – mit klarer Kommunikation, flexibler Planung und einem starken Team im Hintergrund.
+                <br />MILODO Medical Group – damit Sicherheit planbar wird.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -260,10 +262,10 @@ export default async function HomePage() {
                 </a>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-2">
-                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
-                  Inhouse · Dortmund
-                </span>
+	              <div className="mt-8 flex flex-wrap gap-2">
+	                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
+	                  Inhouse · NRW
+	                </span>
                 <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
                   Betriebliche Erste Hilfe
                 </span>
@@ -307,59 +309,66 @@ export default async function HomePage() {
                   <div className="absolute bottom-4 left-4 right-4 grid gap-3">
                     <div className="grid grid-cols-3 gap-3">
                       <div className="rounded-2xl border border-[var(--border)] bg-white/85 px-3 py-2 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
-                        Betriebliche EH
+                        Erste Hilfe Kurse
                       </div>
                       <div className="rounded-2xl border border-[var(--border)] bg-white/85 px-3 py-2 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
                         Notfalltraining
                       </div>
                       <div className="rounded-2xl border border-[var(--border)] bg-white/85 px-3 py-2 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
-                        Einsatzdienst
+                        Personal
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid gap-3 p-6 sm:grid-cols-3">
-                  <a
-                    href="#leistungen"
-                    className="group rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 transition hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--accent)_45%,var(--border))]"
-                    data-reveal
-                    style={revealDelayStyle(60)}
-                  >
-                    <div className="text-xs font-semibold text-[color:var(--muted)]">
-                      Ausbildung
-                    </div>
-                    <div className="mt-1 text-sm font-semibold tracking-tight">
-                      Betriebliche EH
-                    </div>
-                  </a>
-                  <a
-                    href="#leistungen"
-                    className="group rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 transition hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--accent)_45%,var(--border))]"
-                    data-reveal
-                    style={revealDelayStyle(120)}
-                  >
-                    <div className="text-xs font-semibold text-[color:var(--muted)]">
-                      Training
-                    </div>
-                    <div className="mt-1 text-sm font-semibold tracking-tight">
-                      Notfalltraining
-                    </div>
-                  </a>
-                  <a
-                    href="#leistungen"
-                    className="group rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 transition hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--accent)_45%,var(--border))]"
-                    data-reveal
-                    style={revealDelayStyle(180)}
-                  >
-                    <div className="text-xs font-semibold text-[color:var(--muted)]">
-                      Einsatz
-                    </div>
-                    <div className="mt-1 text-sm font-semibold tracking-tight">
-                      Börse & Sanitätsdienst
-                    </div>
-                  </a>
-                </div>
+	                <div className="p-6">
+	                  <div
+	                    className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_90%,white)_0%,var(--surface-2)_100%)] p-4 shadow-[var(--shadow)]"
+	                    data-reveal
+	                    style={revealDelayStyle(90)}
+	                  >
+	                    <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[color-mix(in_oklab,var(--accent)_22%,transparent)] blur-2xl" />
+	                    <div className="flex items-center justify-between gap-4">
+	                      <div className="min-w-0">
+	                        <div className="text-sm font-semibold tracking-tight">Aktuelles</div>
+	                        <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+	                          Neuester Beitrag aus dem Blog
+	                        </div>
+	                      </div>
+	                      <span className="shrink-0 rounded-full border border-[color-mix(in_oklab,var(--accent)_28%,var(--border))] bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-[color:var(--muted)] backdrop-blur">
+	                        Live
+	                      </span>
+	                    </div>
+
+	                    <div className="mt-4">
+	                      <div className="logo-marquee rounded-2xl border border-[var(--border)] bg-white/70">
+	                        <div
+	                          className="logo-marquee-track flex w-max flex-nowrap items-center gap-5 px-4 py-2 [animation:logo-marquee_var(--marquee-duration,20s)_linear_infinite]"
+	                          style={{ ["--marquee-duration" as string]: "20s" }}
+	                        >
+	                          {[0, 1].map((index) => (
+	                            <Link
+	                              key={index}
+	                              href={latestPost ? `/beitraege/${latestPost.slug}` : "/beitraege"}
+	                              className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
+	                            >
+	                              <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--accent)_30%,var(--border))] bg-[color-mix(in_oklab,var(--accent)_10%,white)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
+	                                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+	                                Aktuell:
+	                              </span>
+	                              <span className="max-w-[420px] truncate">
+	                                {latestPost?.title ?? "Neue Beiträge folgen in Kürze"}
+	                              </span>
+	                              <span aria-hidden="true" className="text-[color:var(--muted)]">
+	                                →
+	                              </span>
+	                            </Link>
+	                          ))}
+	                        </div>
+	                      </div>
+	                    </div>
+	                  </div>
+	                </div>
               </div>
             </div>
           </div>
@@ -414,9 +423,9 @@ export default async function HomePage() {
                 <div className="text-sm font-semibold tracking-tight">
                   Rettungsdienst-Börse
                 </div>
-                <div className="mt-1 text-sm text-[color:var(--muted)]">
-                  Schnelle Besetzung innerhalb Dortmunds.
-                </div>
+	                <div className="mt-1 text-sm text-[color:var(--muted)]">
+	                  Schnelle Besetzung in NRW.
+	                </div>
               </div>
             </div>
 
@@ -578,10 +587,10 @@ export default async function HomePage() {
             <div className="absolute inset-0 flex items-end">
               <div className="w-full p-6 md:p-10">
                 <div className="max-w-xl">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/75 px-3 py-1 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                    Inhouse-Training · Dortmund
-                  </div>
+	                  <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/75 px-3 py-1 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
+	                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+	                    Inhouse-Training · NRW
+	                  </div>
                   <div className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
                     Notfalltraining, das euer Team stärkt.
                   </div>
@@ -678,8 +687,8 @@ export default async function HomePage() {
                 </div>
               </div>
               <div className="min-w-0 lg:col-span-8">
-                <ContactForm toEmail={CONTACT_EMAIL} />
-              </div>
+	                <ContactForm toEmail={CONTACT_EMAIL} />
+	              </div>
             </div>
           </div>
         </div>

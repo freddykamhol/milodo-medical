@@ -10,7 +10,7 @@ export default function SiteFooter(props: { contactEmail?: string }) {
               <div className="text-sm font-semibold tracking-tight">Milodo Medical Group</div>
               <div className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
                 Betriebliche Erste-Hilfe-Ausbildung und Notfalltrainings für Arztpraxen sowie Pflegeeinrichtungen – in
-                Dortmund und Umgebung.
+                NRW.
               </div>
               {props.contactEmail ? (
                 <div className="mt-4 text-sm">
@@ -24,9 +24,9 @@ export default function SiteFooter(props: { contactEmail?: string }) {
               ) : null}
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 md:col-span-7 md:grid-cols-3">
-              <div className="grid gap-3 text-sm">
-                <div className="font-semibold tracking-tight">Information</div>
+            <div className="grid items-start gap-8 sm:grid-cols-2 md:col-span-7 md:grid-cols-3">
+              <div className="grid content-start gap-3 text-sm leading-6">
+                <div className="font-semibold leading-6 tracking-tight">Information</div>
                 <Link className="text-[color:var(--muted)] hover:text-[var(--foreground)]" href="/#leistungen">
                   Leistungen
                 </Link>
@@ -41,8 +41,8 @@ export default function SiteFooter(props: { contactEmail?: string }) {
                 </Link>
               </div>
 
-              <div className="grid gap-3 text-sm">
-                <div className="font-semibold tracking-tight">Sonstiges</div>
+              <div className="grid content-start gap-3 text-sm leading-6">
+                <div className="font-semibold leading-6 tracking-tight">Sonstiges</div>
                 <Link className="text-[color:var(--muted)] hover:text-[var(--foreground)]" href="/impressum">
                   Impressum
                 </Link>
@@ -54,8 +54,8 @@ export default function SiteFooter(props: { contactEmail?: string }) {
                 </Link>
               </div>
 
-              <div className="grid gap-3 text-sm">
-                <div className="font-semibold tracking-tight">Portal</div>
+              <div className="grid content-start gap-3 text-sm leading-6">
+                <div className="font-semibold leading-6 tracking-tight">Portal</div>
                 <a
                   className="text-[color:var(--muted)] hover:text-[var(--foreground)]"
                   href="https://app.milodo-medical.de"

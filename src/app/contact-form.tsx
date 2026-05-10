@@ -604,7 +604,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               value={form.shiftLocation}
               onChange={(e) => set("shiftLocation", e.target.value)}
               className={inputClass}
-              placeholder="Dortmund (optional genaue Adresse)"
+              placeholder="NRW (optional genaue Adresse)"
             />
           </label>
           <label className="grid gap-1">

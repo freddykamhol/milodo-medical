@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Milodo Medical",
   },
   description:
-    "Personalvermittlung im Rettungsdienst (Börse) in Dortmund · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
+    "Personalvermittlung im Rettungsdienst (Börse) in NRW · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   alternates: { canonical: "/" },
   openGraph: {
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     siteName: "Milodo Medical Group",
     title: "Milodo Medical Group",
     description:
-      "Personalvermittlung im Rettungsdienst (Börse) in Dortmund · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
+      "Personalvermittlung im Rettungsdienst (Börse) in NRW · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Milodo Medical Group",
     description:
-      "Personalvermittlung im Rettungsdienst (Börse) in Dortmund · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
+      "Personalvermittlung im Rettungsdienst (Börse) in NRW · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
   },
   icons: {
     icon: [{ url: "/logo/Logo.png", type: "image/png" }],
