@@ -7,13 +7,11 @@ export default function ImpressumPage() {
   return (
     <LegalPage
       title="Impressum"
-      lead="Pflichtangaben nach § 5 DDG und § 18 Abs. 2 MStV. Bitte ergänze fehlende Angaben (mit „—“ gekennzeichnet) vor dem Launch."
+      lead="Pflichtangaben nach § 5 DDG und § 18 Abs. 2 MStV. Bitte ergänze fehlende Angaben (mit „—“ gekennzeichnet) vor dem Launch. Tipp: In Umgebungsvariablen kann die Anschrift mit \"\\n\" umgebrochen werden."
       toc={[
         { href: "#anbieter", label: "Anbieter" },
         { href: "#vertretung", label: "Vertretung" },
-        { href: "#register", label: "Register" },
         { href: "#ust", label: "USt-IdNr." },
-        { href: "#aufsicht", label: "Aufsicht" },
       ]}
     >
       <section id="anbieter" className="grid gap-3 text-sm leading-relaxed text-[color:var(--muted)]">
@@ -38,19 +36,9 @@ export default function ImpressumPage() {
         <p>{legal.representative ?? "— (NEXT_PUBLIC_COMPANY_REPRESENTATIVE)"}</p>
       </section>
 
-      <section id="register" className="grid gap-2 text-sm leading-relaxed text-[color:var(--muted)]">
-        <h2 className="text-base font-semibold text-[var(--foreground)]">Registereintrag</h2>
-        <p>{legal.register ?? "— (NEXT_PUBLIC_COMPANY_REGISTER, optional)"}</p>
-      </section>
-
       <section id="ust" className="grid gap-2 text-sm leading-relaxed text-[color:var(--muted)]">
         <h2 className="text-base font-semibold text-[var(--foreground)]">Umsatzsteuer</h2>
         <p>USt-IdNr.: {legal.vatId ?? "— (NEXT_PUBLIC_COMPANY_VAT_ID, optional)"}</p>
-      </section>
-
-      <section id="aufsicht" className="grid gap-2 text-sm leading-relaxed text-[color:var(--muted)]">
-        <h2 className="text-base font-semibold text-[var(--foreground)]">Aufsichtsbehörde (falls zutreffend)</h2>
-        <p>{legal.supervisoryAuthority ?? "— (NEXT_PUBLIC_COMPANY_SUPERVISORY_AUTHORITY, optional)"}</p>
       </section>
     </LegalPage>
   );
