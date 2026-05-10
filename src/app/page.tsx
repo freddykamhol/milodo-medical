@@ -643,7 +643,7 @@ export default async function HomePage() {
         </div>
 
 	        <div
-	          className="relative left-1/2 right-1/2 w-[100dvw] -ml-[50dvw] -mr-[50dvw]"
+	          className="relative left-1/2 right-1/2 w-[100dvw] -ml-[50dvw] -mr-[50dvw] overflow-x-clip"
 	          data-reveal
 	        >
           <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
