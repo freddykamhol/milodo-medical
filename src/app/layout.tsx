@@ -7,6 +7,8 @@ import CookieConsent from "./cookie-consent";
 import RecaptchaScript from "./recaptcha-script";
 import { legalEntityFromEnv } from "@/lib/legal";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     default: "Milodo Medical Group",
