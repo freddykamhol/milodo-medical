@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-type Mode = "eh" | "sanitaet" | "boerse" | "kontakt";
+type Mode = "eh" | "notfalltraining" | "sanitaet" | "boerse" | "kontakt";
 
 type FormState = {
   mode: Mode;
@@ -20,6 +20,9 @@ type FormState = {
   participantCount: string;
   targetGroup: string;
 
+  // Notfalltraining
+  notfallFocus: string;
+
   // Sanitätsdienst
   eventType: string;
   eventDate: string;
@@ -27,7 +30,7 @@ type FormState = {
   attendees: string;
   eventDuration: string;
 
-  // Personalbörse
+  // Personalvermittlung
   shiftDateFrom: string;
   shiftDateTo: string;
   shiftLocation: string;
@@ -76,6 +79,8 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     participantCount: "",
     targetGroup: "",
 
+    notfallFocus: "",
+
     eventType: "",
     eventDate: "",
     eventLocation: "",
@@ -93,8 +98,9 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
 
   const subject = useMemo(() => {
     if (form.mode === "eh") return "Anforderung EH-Ausbildung";
+    if (form.mode === "notfalltraining") return "Anforderung Notfalltraining";
     if (form.mode === "sanitaet") return "Anforderung Sanitätsdienst";
-    if (form.mode === "boerse") return "Anforderung Personal (Börse)";
+    if (form.mode === "boerse") return "Anforderung Personalvermittlung";
     return "Kontaktanfrage";
   }, [form.mode]);
 
@@ -118,6 +124,16 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       lines.push("");
     }
 
+    if (form.mode === "notfalltraining") {
+      lines.push("Details Notfalltraining");
+      lines.push(`Zielgruppe: ${sanitize(form.targetGroup) || "-"}`);
+      lines.push(`Datum/Wunschtermin: ${sanitize(form.trainingDate) || "-"}`);
+      lines.push(`Ort: ${sanitize(form.trainingLocation) || "-"}`);
+      lines.push(`Teilnehmende: ${sanitize(form.participantCount) || "-"}`);
+      lines.push(`Schwerpunkte: ${sanitize(form.notfallFocus) || "-"}`);
+      lines.push("");
+    }
+
     if (form.mode === "sanitaet") {
       lines.push("Details Sanitätsdienst");
       lines.push(`Art der Veranstaltung: ${sanitize(form.eventType) || "-"}`);
@@ -129,7 +145,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     }
 
     if (form.mode === "boerse") {
-      lines.push("Details Personal (Börse)");
+      lines.push("Details Personalvermittlung");
       lines.push(`Zeitraum von: ${sanitize(form.shiftDateFrom) || "-"}`);
       lines.push(`Zeitraum bis: ${sanitize(form.shiftDateTo) || "-"}`);
       lines.push(`Einsatzort: ${sanitize(form.shiftLocation) || "-"}`);
@@ -153,6 +169,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     form.message,
     form.mode,
     form.name,
+    form.notfallFocus,
     form.phone,
     form.qualification,
     form.shiftDateFrom,
@@ -210,6 +227,14 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               trainingLocation: sanitize(form.trainingLocation),
               participantCount: sanitize(form.participantCount),
             }
+          : form.mode === "notfalltraining"
+            ? {
+                targetGroup: sanitize(form.targetGroup),
+                trainingDate: sanitize(form.trainingDate),
+                trainingLocation: sanitize(form.trainingLocation),
+                participantCount: sanitize(form.participantCount),
+                focus: sanitize(form.notfallFocus),
+              }
           : form.mode === "sanitaet"
             ? {
                 eventType: sanitize(form.eventType),
@@ -274,6 +299,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         trainingLocation: "",
         participantCount: "",
         targetGroup: "",
+        notfallFocus: "",
         eventType: "",
         eventDate: "",
         eventLocation: "",
@@ -332,6 +358,27 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         </button>
         <button
           type="button"
+          onClick={() => set("mode", "notfalltraining")}
+          className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
+            form.mode === "notfalltraining"
+              ? "border-[color-mix(in_oklab,var(--accent)_55%,var(--border))] bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-soft)]"
+              : "border-[var(--border)] bg-[var(--surface-2)] text-[color:var(--muted)] hover:bg-[var(--surface)]"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <span>Notfalltraining</span>
+            {form.mode === "notfalltraining" ? (
+              <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
+                Auswahl
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">
+            Praxis, Pflege & Teams
+          </div>
+        </button>
+        <button
+          type="button"
           onClick={() => set("mode", "sanitaet")}
           className={`min-h-[74px] rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
             form.mode === "sanitaet"
@@ -359,7 +406,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           }`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span>Personal (Börse)</span>
+            <span>Personalvermittlung</span>
             {form.mode === "boerse" ? (
               <span className="rounded-full bg-[color:var(--accent)] px-2 py-0.5 text-[10px] font-semibold text-white">
                 Auswahl
@@ -367,7 +414,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
             ) : null}
           </div>
           <div className="mt-1 hidden text-xs font-medium text-[color:var(--muted)] lg:block">
-            Schichten & kurzfristige Einsätze
+            Schichten & kurzfristige Besetzung
           </div>
         </button>
         <button
@@ -510,6 +557,73 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         </div>
       ) : null}
 
+      {form.mode === "notfalltraining" ? (
+        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
+          <div className="flex items-center gap-3">
+            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details Notfalltraining</div>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <label className="grid gap-1 sm:col-span-2">
+              <span className="text-xs font-semibold text-[color:var(--muted)]">
+                Zielgruppe
+              </span>
+              <input
+                value={form.targetGroup}
+                onChange={(e) => set("targetGroup", e.target.value)}
+                className={inputClass}
+                placeholder="z.B. Arztpraxis, Pflegeeinrichtung, Betrieb"
+              />
+            </label>
+            <label className="grid gap-1">
+              <span className="text-xs font-semibold text-[color:var(--muted)]">
+                Wunschtermin
+              </span>
+              <input
+                value={form.trainingDate}
+                onChange={(e) => set("trainingDate", e.target.value)}
+                className={inputClass}
+                placeholder="TT.MM.JJJJ"
+              />
+            </label>
+            <label className="grid gap-1">
+              <span className="text-xs font-semibold text-[color:var(--muted)]">
+                Teilnehmende
+              </span>
+              <input
+                value={form.participantCount}
+                onChange={(e) => set("participantCount", e.target.value)}
+                className={inputClass}
+                inputMode="numeric"
+                placeholder="z.B. 8"
+              />
+            </label>
+            <label className="grid gap-1 sm:col-span-2">
+              <span className="text-xs font-semibold text-[color:var(--muted)]">
+                Ort
+              </span>
+              <input
+                value={form.trainingLocation}
+                onChange={(e) => set("trainingLocation", e.target.value)}
+                className={inputClass}
+                placeholder="Adresse / Standort"
+              />
+            </label>
+            <label className="grid gap-1 sm:col-span-2">
+              <span className="text-xs font-semibold text-[color:var(--muted)]">
+                Schwerpunkte
+              </span>
+              <input
+                value={form.notfallFocus}
+                onChange={(e) => set("notfallFocus", e.target.value)}
+                className={inputClass}
+                placeholder="z.B. Reanimation, Anaphylaxie, Krampfanfall, Team-Rollen"
+              />
+            </label>
+          </div>
+        </div>
+      ) : null}
+
       {form.mode === "sanitaet" ? (
         <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
           <div className="flex items-center gap-3">
@@ -580,7 +694,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
       {form.mode === "boerse" ? (
         <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-4 md:p-5">
           <div className="flex items-center gap-3">
-            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details Personal (Börse)</div>
+            <div className="text-xs font-semibold tracking-wide text-[color:var(--muted)]">Details Personalvermittlung</div>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
