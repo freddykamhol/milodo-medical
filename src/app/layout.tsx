@@ -5,6 +5,7 @@ import SiteFooter from "./site-footer";
 import SiteHeader from "./site-header";
 import CookieConsent from "./cookie-consent";
 import RecaptchaScript from "./recaptcha-script";
+import OverflowProbe from "./overflow-probe";
 import { legalEntityFromEnv } from "@/lib/legal";
 
 export const dynamic = "force-dynamic";
@@ -61,8 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="de">
+    <html lang="de" className="overflow-x-hidden">
       <body className="min-h-dvh overflow-x-hidden">
+        <OverflowProbe />
         {recaptchaSiteKey ? <RecaptchaScript siteKey={recaptchaSiteKey} /> : null}
         <script
           type="application/ld+json"

@@ -89,7 +89,7 @@ const SERVICES = [
     ),
   },
   {
-    title: "Personalvermittlung (Börse) – Rettungsdienst",
+    title: "Personalvermittlung – Rettungsdienst, Pflege & Sanitätsdienst",
     description:
       "Wenn Schichten offen bleiben, zählt Tempo: Wir vermitteln kurzfristig passendes Personal für den Rettungsdienst – in NRW, klar abgestimmt und zuverlässig umgesetzt.",
     icon: (
@@ -187,6 +187,33 @@ function revealDelayStyle(ms: number): CSSProperties {
   return { ["--reveal-delay" as string]: `${ms}ms` } as CSSProperties;
 }
 
+const HERO_BADGE_STYLE: CSSProperties = {
+  fontSize: "clamp(10px, 3.2vw, 12px)",
+  paddingInline: "clamp(10px, 3.2vw, 12px)",
+  paddingBlock: "clamp(4px, 1.2vw, 6px)",
+  gap: "clamp(6px, 1.8vw, 10px)",
+} as const;
+
+const HERO_BODY_STYLE: CSSProperties = {
+  fontSize: "clamp(0.9rem, 3.2vw, 1.125rem)",
+} as const;
+
+const HERO_CTA_STYLE: CSSProperties = {
+  fontSize: "clamp(12px, 3.3vw, 14px)",
+  paddingInline: "clamp(14px, 4.2vw, 20px)",
+  paddingBlock: "clamp(10px, 3.2vw, 12px)",
+} as const;
+
+const HERO_CHIP_STYLE: CSSProperties = {
+  fontSize: "clamp(10px, 3.1vw, 12px)",
+  paddingInline: "clamp(10px, 3.2vw, 12px)",
+  paddingBlock: "clamp(4px, 1.2vw, 6px)",
+} as const;
+
+const HERO_IMAGE_STYLE: CSSProperties = {
+  height: "clamp(220px, 70vw, 340px)",
+} as const;
+
 function SectionHeader(props: {
   kicker: string;
   title: string;
@@ -213,7 +240,7 @@ export default async function HomePage() {
   const latestPost = latestPosts[0];
   return (
     <main
-      className="relative min-h-dvh bg-[var(--background)] text-[var(--foreground)]"
+      className="relative min-h-dvh break-words overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]"
     >
       <ScrollFx />
       <div aria-hidden="true" className="scroll-progress" />
@@ -228,18 +255,26 @@ export default async function HomePage() {
       </div>
 
       <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 pb-10 pt-10 md:pb-14 md:pt-14">
+        <div className="mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 md:pb-14 md:pt-14">
           <div className="grid items-center gap-10 md:grid-cols-12">
-            <div data-reveal className="md:col-span-7">
-	              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[color:var(--muted)] shadow-[var(--shadow)]">
-	                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-	                Betriebliche Erste Hilfe · Notfalltraining · NRW
+            <div data-reveal className="min-w-0 md:col-span-7">
+	              <div
+	                className="inline-flex max-w-full items-start rounded-full border border-[var(--border)] bg-[var(--surface)] font-semibold leading-snug text-[color:var(--muted)] shadow-[var(--shadow)]"
+	                style={HERO_BADGE_STYLE}
+	              >
+	                <span className="mt-[0.35em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+	                <span className="min-w-0 break-words">
+	                  Betriebliche Erste Hilfe · Notfalltraining · NRW
+	                </span>
 	              </div>
-              <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight md:text-6xl">
+              <h1 className="mt-5 text-balance text-[clamp(2rem,7.2vw,3.75rem)] font-semibold tracking-tight">
                 Sicher handeln im{" "}
                 <span className="text-[var(--accent)]">Notfall</span>.
               </h1>
-              <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--muted)] md:text-lg">
+              <p
+                className="mt-5 max-w-xl break-words text-pretty leading-relaxed text-[color:var(--muted)]"
+                style={HERO_BODY_STYLE}
+              >
                 Wir unterstützen Unternehmen, Einrichtungen und Veranstalter in ganz NRW mit zuverlässigen medizinischen Dienstleistungen und praxisnahen Schulungskonzepten.
                 <br />Wir sorgen dafür, dass Teams im Notfall wissen, was zu tun ist – mit betrieblicher Erste-Hilfe-Ausbildung und individuell angepassten Notfalltrainings für Arztpraxen, Pflegeeinrichtungen und Unternehmen.
                 <br />Darüber hinaus unterstützen wir Rettungsdienste und Krankentransporte bei kurzfristigen oder planbaren Personallücken durch unser Netzwerk qualifizierter Fachkräfte. Auch bei Veranstaltungen stehen wir Ihnen mit professionellen Sanitätsdiensten zur Seite – zuverlässig, strukturiert und persönlich betreut.
@@ -247,38 +282,52 @@ export default async function HomePage() {
                 <br />MILODO Medical Group – damit Sicherheit planbar wird.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  className="inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow)] hover:opacity-90"
-                  href="#kontakt"
-                >
-                  Jetzt unverbindlich anfragen
-                </a>
-                <a
-                  className="inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface-2)]"
-                  href="#leistungen"
-                >
-                  Angebote ansehen
-                </a>
-              </div>
+	              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+	                <a
+	                  className="inline-flex w-full max-w-full items-center justify-center whitespace-normal break-words rounded-2xl bg-[var(--accent)] text-center font-semibold leading-snug text-white shadow-[var(--shadow)] hover:opacity-90 sm:w-auto"
+	                  style={HERO_CTA_STYLE}
+	                  href="#kontakt"
+	                >
+	                  Jetzt unverbindlich anfragen
+	                </a>
+	                <a
+	                  className="inline-flex w-full max-w-full items-center justify-center whitespace-normal break-words rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-center font-semibold leading-snug text-[var(--foreground)] hover:bg-[var(--surface-2)] sm:w-auto"
+	                  style={HERO_CTA_STYLE}
+	                  href="#leistungen"
+	                >
+	                  Angebote ansehen
+	                </a>
+	              </div>
 
-	              <div className="mt-8 flex flex-wrap gap-2">
-	                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
-	                  Inhouse · NRW
+	              <div className="mt-8 flex flex-wrap gap-2 pb-1">
+			                <span
+			                  className="inline-flex max-w-full break-words whitespace-normal rounded-full border border-[var(--border)] bg-[var(--surface)] leading-snug text-[color:var(--muted)]"
+			                  style={HERO_CHIP_STYLE}
+			                >
+			                  Inhouse · NRW
+			                </span>
+	                <span
+	                  className="inline-flex max-w-full break-words whitespace-normal rounded-full border border-[var(--border)] bg-[var(--surface)] leading-snug text-[color:var(--muted)]"
+	                  style={HERO_CHIP_STYLE}
+	                >
+	                  Betriebliche Erste Hilfe
 	                </span>
-                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
-                  Betriebliche Erste Hilfe
-                </span>
-                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
-                  Notfalltraining (Praxis & Pflege)
-                </span>
-                <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs text-[color:var(--muted)]">
-                  Einsatzdienst (Börse/Sanität)
-                </span>
-              </div>
+	                <span
+	                  className="inline-flex max-w-full break-words whitespace-normal rounded-full border border-[var(--border)] bg-[var(--surface)] leading-snug text-[color:var(--muted)]"
+	                  style={HERO_CHIP_STYLE}
+	                >
+	                  Notfalltraining (Praxis & Pflege)
+	                </span>
+	                <span
+	                  className="inline-flex max-w-full break-words whitespace-normal rounded-full border border-[var(--border)] bg-[var(--surface)] leading-snug text-[color:var(--muted)]"
+	                  style={HERO_CHIP_STYLE}
+	                >
+	                  Einsatzdienst
+	                </span>
+	              </div>
             </div>
 
-            <div className="md:col-span-5">
+            <div className="min-w-0 md:col-span-5">
               <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow)]">
                 <div
                   data-reveal
@@ -291,15 +340,16 @@ export default async function HomePage() {
                     data-zoom-from="1.08"
                     data-zoom-to="1.04"
                   >
-                    <Image
-                      src={HOME_IMAGES.hero}
-                      alt="Milodo Medical Group – Hero Bild"
-                      width={1600}
-                      height={1100}
-                      priority
-                      sizes="(max-width: 768px) 100vw, 42vw"
-                      className="h-[340px] w-full object-cover md:h-[420px] [transform:translateZ(0)] [backface-visibility:hidden]"
-                    />
+	                    <Image
+	                      src={HOME_IMAGES.hero}
+	                      alt="Milodo Medical Group – Hero Bild"
+	                      width={1600}
+	                      height={1100}
+	                      priority
+	                      sizes="(max-width: 768px) 100vw, 42vw"
+	                      className="w-full object-cover md:h-[420px] [transform:translateZ(0)] [backface-visibility:hidden]"
+	                      style={HERO_IMAGE_STYLE}
+	                    />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/55 to-transparent" />
                   <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
@@ -307,7 +357,7 @@ export default async function HomePage() {
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0.85)_10%,rgba(255,255,255,0)_36%)]" />
 
                   <div className="absolute bottom-4 left-4 right-4 grid gap-3">
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-3 sm:gap-3">
                       <div className="rounded-2xl border border-[var(--border)] bg-white/85 px-3 py-2 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
                         Erste Hilfe Kurse
                       </div>
@@ -321,12 +371,12 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-	                <div className="p-6">
-	                  <div
-	                    className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_90%,white)_0%,var(--surface-2)_100%)] p-4 shadow-[var(--shadow)]"
-	                    data-reveal
-	                    style={revealDelayStyle(90)}
-	                  >
+		                <div className="p-5 sm:p-6">
+		                  <div
+		                    className="group relative min-w-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_90%,white)_0%,var(--surface-2)_100%)] p-4 shadow-[var(--shadow)]"
+		                    data-reveal
+		                    style={revealDelayStyle(90)}
+		                  >
 	                    <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[color-mix(in_oklab,var(--accent)_22%,transparent)] blur-2xl" />
 	                    <div className="flex items-center justify-between gap-4">
 	                      <div className="min-w-0">
@@ -340,38 +390,38 @@ export default async function HomePage() {
 	                      </span>
 	                    </div>
 
-	                    <div className="mt-4">
-	                      <div className="logo-marquee rounded-2xl border border-[var(--border)] bg-white/70">
-	                        <div
-	                          className="logo-marquee-track flex w-max flex-nowrap items-center gap-5 px-4 py-2 [animation:logo-marquee_var(--marquee-duration,20s)_linear_infinite]"
-	                          style={{ ["--marquee-duration" as string]: "20s" }}
-	                        >
-	                          <Link
-	                            href={latestPost ? `/beitraege/${latestPost.slug}` : "/beitraege"}
-	                            className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
-	                          >
-	                            <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--accent)_30%,var(--border))] bg-[color-mix(in_oklab,var(--accent)_10%,white)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
-	                              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-	                              Aktuell:
-	                            </span>
-	                            <span className="max-w-[420px] truncate">
-	                              {latestPost?.title ?? "Neue Beiträge folgen in Kürze"}
-	                            </span>
-	                            <span aria-hidden="true" className="text-[color:var(--muted)]">
-	                              →
-	                            </span>
-	                          </Link>
-	                          <span
-	                            aria-hidden="true"
-	                            className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color-mix(in_oklab,var(--foreground)_18%,transparent)]"
-	                          />
-	                          <Link
-	                            href="/beitraege"
-	                            className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
-	                          >
-	                            <span className="rounded-full border border-[var(--border)] bg-white/60 px-2.5 py-1 text-[11px] font-semibold text-[color:var(--muted)] backdrop-blur">
-	                              Blog
-	                            </span>
+		                    <div className="mt-4 min-w-0">
+		                      <div className="logo-marquee w-full rounded-2xl border border-[var(--border)] bg-white/70">
+		                        <div
+		                          className="flex w-full flex-wrap items-center gap-3 px-4 py-2 sm:w-max sm:flex-nowrap sm:gap-5 sm:[animation:logo-marquee_var(--marquee-duration,20s)_linear_infinite]"
+		                          style={{ ["--marquee-duration" as string]: "20s" }}
+      	                        >
+		                          <Link
+		                            href={latestPost ? `/beitraege/${latestPost.slug}` : "/beitraege"}
+		                            className="inline-flex min-w-0 items-center gap-2 text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
+		                          >
+		                            <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--accent)_30%,var(--border))] bg-[color-mix(in_oklab,var(--accent)_10%,white)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
+		                              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+		                              Aktuell:
+		                            </span>
+		                            <span className="min-w-0 flex-1 break-words sm:max-w-[420px] sm:truncate">
+		                              {latestPost?.title ?? "Neue Beiträge folgen in Kürze"}
+		                            </span>
+		                            <span aria-hidden="true" className="text-[color:var(--muted)]">
+		                              →
+		                            </span>
+		                          </Link>
+		                          <span
+		                            aria-hidden="true"
+		                            className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color-mix(in_oklab,var(--foreground)_18%,transparent)] max-sm:hidden"
+		                          />
+		                          <Link
+		                            href="/beitraege"
+		                            className="inline-flex items-center gap-2 text-xs font-semibold tracking-tight text-[color:var(--muted)] hover:text-[var(--foreground)]"
+		                          >
+		                            <span className="rounded-full border border-[var(--border)] bg-white/60 px-2.5 py-1 text-[11px] font-semibold text-[color:var(--muted)] backdrop-blur">
+		                              Blog
+		                            </span>
 	                            <span>Alle Beiträge ansehen</span>
 	                            <span aria-hidden="true" className="text-[color:var(--muted)]">
 	                              →
@@ -389,7 +439,7 @@ export default async function HomePage() {
       </section>
 
       <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 pb-12">
+        <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
           <div className="grid gap-4 md:grid-cols-4">
             {VALUE_PROPS.map((item, index) => (
               <div
@@ -411,7 +461,7 @@ export default async function HomePage() {
       </section>
 
       <section id="bilder" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 pb-12">
+        <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
           <SectionHeader
             kicker="Impressionen"
             title="Zeig Vertrauen. Zeig Qualität."
@@ -424,7 +474,7 @@ export default async function HomePage() {
                 <div data-zoom data-zoom-from="1.12" data-zoom-to="1">
                   <Image
                     src={HOME_IMAGES.borse}
-                    alt="Rettungsdienst-Börse"
+                    alt="Rettungsdienst-Personalvermittlung"
                     width={1200}
                     height={900}
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -434,7 +484,7 @@ export default async function HomePage() {
               </div>
               <div className="p-5">
                 <div className="text-sm font-semibold tracking-tight">
-                  Rettungsdienst-Börse
+                  Personalvermittlung
                 </div>
 	                <div className="mt-1 text-sm text-[color:var(--muted)]">
 	                  Schnelle Besetzung in NRW.
@@ -500,21 +550,21 @@ export default async function HomePage() {
       </section>
 
       <section id="leistungen" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
           <SectionHeader
             kicker="Leistungen"
             title="Leistungen, die Ergebnisse liefern."
             subtitle="Von betrieblicher Erste-Hilfe-Ausbildung bis Notfalltraining für Praxis & Pflege – plus Einsatzdienst, wenn es schnell gehen muss."
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map((service, index) => (
-              <div
-                key={service.title}
-                className="group rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow)] transition hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--accent)_45%,var(--border))]"
-                data-reveal
-                style={revealDelayStyle(index * 90)}
-              >
+	          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+	            {SERVICES.map((service, index) => (
+	              <div
+	                key={service.title}
+	                className="group rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow)] transition hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--accent)_45%,var(--border))] sm:p-6"
+	                data-reveal
+	                style={revealDelayStyle(index * 90)}
+	              >
                 <div className="flex items-start justify-between gap-4">
                   <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] text-[var(--accent)]">
                     {service.icon}
@@ -536,7 +586,7 @@ export default async function HomePage() {
       </section>
 
       <section id="ablauf" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
           <div className="grid gap-10 md:grid-cols-12">
             <div className="md:col-span-5">
               <SectionHeader
@@ -550,11 +600,11 @@ export default async function HomePage() {
                 {STEPS.map((step, index) => (
                   <div
                     key={step.title}
-                    className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow)]"
+                    className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow)] sm:p-6"
                     data-reveal
                     style={revealDelayStyle(index * 90)}
                   >
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                       <div className="text-sm font-semibold tracking-tight">
                         {step.title}
                       </div>
@@ -574,7 +624,7 @@ export default async function HomePage() {
       </section>
 
       <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
           <div className="group relative isolate overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow)] [transform:translateZ(0)]">
             <div data-reveal className="relative">
               <div
@@ -598,7 +648,7 @@ export default async function HomePage() {
             <div className="pointer-events-none absolute inset-0 rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.55)]" />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0.85)_10%,rgba(255,255,255,0)_36%)]" />
             <div className="absolute inset-0 flex items-end">
-              <div className="w-full p-6 md:p-10">
+              <div className="w-full p-5 sm:p-6 md:p-10">
                 <div className="max-w-xl">
 	                  <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/75 px-3 py-1 text-xs font-semibold text-[color:var(--muted)] backdrop-blur">
 	                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
@@ -614,13 +664,13 @@ export default async function HomePage() {
                   </div>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
-                      className="inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow)] hover:opacity-90"
+                      className="inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-4 py-3 text-center text-sm font-semibold leading-snug text-white shadow-[var(--shadow)] hover:opacity-90 sm:px-5"
                       href="#kontakt"
                     >
                       Anfrage senden
                     </a>
                     <a
-                      className="inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-white/75 px-5 py-3 text-sm font-semibold text-[var(--foreground)] backdrop-blur hover:bg-white"
+                      className="inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-white/75 px-4 py-3 text-center text-sm font-semibold leading-snug text-[var(--foreground)] backdrop-blur hover:bg-white sm:px-5"
                       href="#bilder"
                     >
                       Impressionen
@@ -634,7 +684,7 @@ export default async function HomePage() {
       </section>
 
       <section id="kunden" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
           <SectionHeader
             kicker="Kunden & Partner"
             title="Namen, die Vertrauen schaffen."
@@ -642,11 +692,14 @@ export default async function HomePage() {
           />
         </div>
 
-	        <div className="w-full" data-reveal>
-	          <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
-	            <div
-	              className="logo-marquee-track flex w-max flex-nowrap items-center gap-3 px-6 py-4 [animation:logo-marquee_var(--marquee-duration,36s)_linear_infinite]"
-	              style={{ ["--marquee-duration" as string]: "36s" }}
+        <div
+          className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]"
+          data-reveal
+        >
+          <div className="logo-marquee border-y border-[var(--border)] bg-[var(--surface)]">
+            <div
+              className="logo-marquee-track flex w-max flex-nowrap items-center gap-3 px-6 py-4 [animation:logo-marquee_var(--marquee-duration,36s)_linear_infinite]"
+              style={{ ["--marquee-duration" as string]: "36s" }}
             >
               {[...CLIENTS, ...CLIENTS].map((name, index) => (
                 <div
@@ -662,7 +715,7 @@ export default async function HomePage() {
       </section>
 
       <section id="beitraege" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
           <SectionHeader
             kicker="Blog"
             title="Das passiert bei uns."
@@ -674,8 +727,8 @@ export default async function HomePage() {
       </section>
 
       <section id="kontakt" className="relative scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
-          <div className="rounded-3xl border border-[var(--border)] bg-[linear-gradient(180deg,var(--surface)_0%,var(--surface-2)_100%)] p-8 shadow-[var(--shadow)] md:p-10">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16">
+          <div className="rounded-3xl border border-[var(--border)] bg-[linear-gradient(180deg,var(--surface)_0%,var(--surface-2)_100%)] p-6 shadow-[var(--shadow)] sm:p-8 md:p-10">
             <div className="grid items-start gap-8 lg:grid-cols-12">
               <div className="lg:col-span-4">
                 <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">

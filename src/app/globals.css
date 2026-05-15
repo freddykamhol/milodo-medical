@@ -27,6 +27,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--scroll-offset);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -36,6 +39,16 @@ body {
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+header,
+main,
+footer {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Scroll FX (reveal, parallax, progress) */
