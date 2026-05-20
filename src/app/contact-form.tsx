@@ -289,14 +289,19 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           recaptchaAction,
         }),
       });
-      const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; message?: string } | null;
+      const json = (await res.json().catch(() => null)) as
+        | { ok?: boolean; error?: string; message?: string }
+        | { ok?: boolean; status?: number; body?: string }
+        | null;
       if (!res.ok || !json?.ok) {
         const detail =
-          typeof json?.error === "string"
-            ? json.error
-            : typeof json?.message === "string"
-              ? json.message
-              : "unknown";
+          typeof (json as { error?: unknown } | null)?.error === "string"
+            ? String((json as { error?: string }).error)
+            : typeof (json as { message?: unknown } | null)?.message === "string"
+              ? String((json as { message?: string }).message)
+              : typeof (json as { body?: unknown } | null)?.body === "string"
+                ? String((json as { body?: string }).body).slice(0, 220)
+                : "unknown";
         throw new Error(`submit_failed:${res.status}:${detail}`);
       }
       setSubmitState("ok");

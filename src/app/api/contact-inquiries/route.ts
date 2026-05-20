@@ -16,9 +16,18 @@ export async function POST(req: Request) {
   const endpoint = `${portalUrl}/api/public/contact-inquiries`;
 
   const bodyText = await req.text().catch(() => "");
+  const sourceUrl =
+    req.headers.get("x-forwarded-proto") && req.headers.get("x-forwarded-host")
+      ? `${req.headers.get("x-forwarded-proto")}://${req.headers.get("x-forwarded-host")}`
+      : null;
+
   const forwardRes = await fetch(endpoint, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      // Some backends apply allowlists based on Origin/Referer even for "public" endpoints.
+      ...(sourceUrl ? { origin: sourceUrl, referer: `${sourceUrl}/` } : {}),
+    },
     body: bodyText,
     cache: "no-store",
   }).catch(() => null);
@@ -34,9 +43,5 @@ export async function POST(req: Request) {
   }
 
   const text = await forwardRes.text().catch(() => "");
-  return NextResponse.json(
-    { ok: forwardRes.ok, status: forwardRes.status, body: text },
-    { status: forwardRes.status },
-  );
+  return NextResponse.json({ ok: forwardRes.ok, status: forwardRes.status, body: text }, { status: forwardRes.status });
 }
-
