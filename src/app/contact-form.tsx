@@ -95,6 +95,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<null | "ok" | "error">(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const subject = useMemo(() => {
     if (form.mode === "eh") return "Anforderung EH-Ausbildung";
@@ -218,6 +219,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   async function submitToPortal() {
     setSubmitting(true);
     setSubmitState(null);
+    setSubmitError(null);
     try {
       const details =
         form.mode === "eh"
@@ -263,10 +265,13 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           body: JSON.stringify({ token, action: recaptchaAction }),
         }).catch(() => null);
         const verifyJson = (await verifyRes?.json().catch(() => null)) as { ok?: boolean } | null;
-        if (!verifyRes?.ok || !verifyJson?.ok) throw new Error("recaptcha_failed");
+        if (!verifyRes?.ok || !verifyJson?.ok) {
+          throw new Error(`recaptcha_failed:${verifyRes?.status ?? "network_error"}`);
+        }
       }
 
-      const res = await fetch(`${portalUrl}/api/public/contact-inquiries`, {
+      const endpoint = `${portalUrl}/api/public/contact-inquiries`;
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -284,8 +289,16 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
           recaptchaAction,
         }),
       });
-      const json = (await res.json().catch(() => null)) as { ok?: boolean } | null;
-      if (!res.ok || !json?.ok) throw new Error("submit_failed");
+      const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; message?: string } | null;
+      if (!res.ok || !json?.ok) {
+        const detail =
+          typeof json?.error === "string"
+            ? json.error
+            : typeof json?.message === "string"
+              ? json.message
+              : "unknown";
+        throw new Error(`submit_failed:${res.status}:${detail}`);
+      }
       setSubmitState("ok");
       setForm((prev) => ({
         ...prev,
@@ -311,7 +324,11 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         qualification: "",
         staffCount: "",
       }));
-    } catch {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "unknown_error";
+      setSubmitError(message);
+      // Helpful for debugging CORS/network issues (fetch throws TypeError in those cases)
+      console.error("ContactForm submit failed", { message, portalUrl });
       setSubmitState("error");
     } finally {
       setSubmitting(false);
@@ -818,6 +835,11 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
                 E‑Mail
               </a>
               .
+              {process.env.NODE_ENV !== "production" && submitError ? (
+                <div className="mt-1 break-words text-[11px] text-red-700/90">
+                  Debug: {submitError}
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
