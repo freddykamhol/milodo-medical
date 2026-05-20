@@ -270,7 +270,7 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         }
       }
 
-      const endpoint = `${portalUrl}/api/public/contact-inquiries`;
+      const endpoint = "/api/contact-inquiries";
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
