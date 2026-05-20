@@ -11,22 +11,31 @@ function getPortalUrl() {
   return raw.replace(/\/+$/g, "");
 }
 
+function getSourceOrigin(req: Request) {
+  const configured =
+    String(process.env.SITE_URL ?? "").trim() ||
+    String(process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
+  if (configured) return configured.replace(/\/+$/g, "");
+
+  const proto = req.headers.get("x-forwarded-proto");
+  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
+  if (proto && host) return `${proto}://${host}`.replace(/\/+$/g, "");
+  return null;
+}
+
 export async function POST(req: Request) {
   const portalUrl = getPortalUrl();
   const endpoint = `${portalUrl}/api/public/contact-inquiries`;
 
   const bodyText = await req.text().catch(() => "");
-  const sourceUrl =
-    req.headers.get("x-forwarded-proto") && req.headers.get("x-forwarded-host")
-      ? `${req.headers.get("x-forwarded-proto")}://${req.headers.get("x-forwarded-host")}`
-      : null;
+  const sourceOrigin = getSourceOrigin(req);
 
   const forwardRes = await fetch(endpoint, {
     method: "POST",
     headers: {
       "content-type": "application/json",
       // Some backends apply allowlists based on Origin/Referer even for "public" endpoints.
-      ...(sourceUrl ? { origin: sourceUrl, referer: `${sourceUrl}/` } : {}),
+      ...(sourceOrigin ? { origin: sourceOrigin, referer: `${sourceOrigin}/` } : {}),
     },
     body: bodyText,
     cache: "no-store",
