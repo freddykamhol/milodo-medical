@@ -193,12 +193,12 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   };
 
   const requiredOk = Boolean(sanitize(form.name) && sanitize(form.email) && form.privacyConsent);
-  const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
+  const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://portal.milodo-medical.de").replace(/\/+$/g, "");
   const recaptchaSiteKey = String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "").trim();
   const inputClass =
-    "h-11 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
+    "h-11 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 text-[16px] outline-none ring-[var(--accent)]/30 focus:ring-4 sm:text-sm";
   const textareaClass =
-    "w-full rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none ring-[var(--accent)]/30 focus:ring-4";
+    "w-full rounded-3xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[16px] outline-none ring-[var(--accent)]/30 focus:ring-4 sm:text-sm";
 
   async function recaptchaToken(action: string): Promise<string> {
     if (!recaptchaSiteKey) return "";
