@@ -1,4 +1,5 @@
 import { legalEntityFromEnv } from "@/lib/legal";
+import { siteUrl as resolveSiteUrl } from "@/lib/site";
 import LegalPage from "@/app/components/legal-page";
 
 export const dynamic = "force-dynamic";
@@ -8,7 +9,7 @@ export default function DatenschutzPage() {
   const legal = legalEntityFromEnv();
   const lastUpdated = String(process.env.NEXT_PUBLIC_PRIVACY_LAST_UPDATED ?? "").trim() || "—";
   const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim() || "—";
+  const siteUrl = resolveSiteUrl();
 
   return (
     <LegalPage

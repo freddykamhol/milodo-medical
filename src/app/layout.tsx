@@ -7,6 +7,7 @@ import CookieConsent from "./cookie-consent";
 import RecaptchaScript from "./recaptcha-script";
 import OverflowProbe from "./overflow-probe";
 import { legalEntityFromEnv } from "@/lib/legal";
+import { siteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   },
   description:
     "Personalvermittlung im Rettungsdienst (Börse) in NRW · Erste-Hilfe-Ausbildung · Sanitätsdienst.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteUrl()),
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kontakt@milodo-medical.de";
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/g, "");
+  const baseUrl = siteUrl();
   const recaptchaSiteKey = String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "").trim();
   const legal = legalEntityFromEnv();
 

@@ -24,7 +24,7 @@ npm run start
 
 ### Env checklist
 
-- `NEXT_PUBLIC_SITE_URL` (Prod-URL, z.B. `https://…`)
+- `NEXT_PUBLIC_SITE_URL` oder `SITE_URL` (Prod-URL, z.B. `https://milodo-medical.de`; in Production wird `localhost` bewusst ignoriert)
 - `NEXT_PUBLIC_CONTACT_EMAIL`
 - Legal/DSGVO (für `/impressum` und `/datenschutz`):
   - `NEXT_PUBLIC_COMPANY_NAME`
