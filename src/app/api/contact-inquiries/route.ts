@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { siteUrl } from "@/lib/site";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -15,7 +17,7 @@ function getSourceOrigin(req: Request) {
   const configured =
     String(process.env.SITE_URL ?? "").trim() ||
     String(process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
-  if (configured) return configured.replace(/\/+$/g, "");
+  if (configured) return siteUrl();
 
   const proto = req.headers.get("x-forwarded-proto");
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");

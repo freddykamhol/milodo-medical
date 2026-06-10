@@ -55,7 +55,7 @@ export default function SiteFooter(props: { contactEmail?: string }) {
                 <div className="font-semibold leading-6 tracking-tight">Portal</div>
                 <a
                   className="text-[color:var(--muted)] hover:text-[var(--foreground)]"
-                  href="https://app.milodo-medical.de"
+                  href="https://portal.milodo-medical.de"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

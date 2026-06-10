@@ -8,7 +8,7 @@ export const revalidate = 0;
 export default function DatenschutzPage() {
   const legal = legalEntityFromEnv();
   const lastUpdated = String(process.env.NEXT_PUBLIC_PRIVACY_LAST_UPDATED ?? "").trim() || "—";
-  const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://app.milodo-medical.de").replace(/\/+$/g, "");
+  const portalUrl = (process.env.NEXT_PUBLIC_PORTAL_URL ?? "https://portal.milodo-medical.de").replace(/\/+$/g, "");
   const siteUrl = resolveSiteUrl();
 
   return (
