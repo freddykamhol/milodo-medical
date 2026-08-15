@@ -49,6 +49,9 @@ export default function SiteFooter(props: { contactEmail?: string }) {
                 <Link className="text-[color:var(--muted)] hover:text-[var(--foreground)]" href="/datenschutz">
                   Datenschutz
                 </Link>
+                <Link className="text-[color:var(--muted)] hover:text-[var(--foreground)]" href="/agb">
+                  AGB
+                </Link>
               </div>
 
               <div className="grid content-start gap-3 text-sm leading-6">
@@ -82,6 +85,9 @@ export default function SiteFooter(props: { contactEmail?: string }) {
               </Link>
               <Link className="hover:text-[var(--foreground)]" href="/datenschutz">
                 Datenschutz
+              </Link>
+              <Link className="hover:text-[var(--foreground)]" href="/agb">
+                AGB
               </Link>
             </div>
           </div>
