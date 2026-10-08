@@ -46,7 +46,7 @@ export default function DatenschutzPage() {
         </div>
         <div>
           Soweit ein Datenschutzbeauftragter bestellt ist, lautet die Kontaktadresse:{" "}
-          <span className="font-mono">{legal.dpoContact ?? "— (NEXT_PUBLIC_DPO_CONTACT, optional)"}</span>
+          <span>Waldstraße 20, 46284 Dorsten, z. H. Mike Lohner</span>
         </div>
       </section>
 

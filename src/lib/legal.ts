@@ -18,10 +18,6 @@ export type LegalEntity = {
   email: string | null;
   phone: string | null;
   representative: string | null;
-  register: string | null;
-  vatId: string | null;
-  supervisoryAuthority: string | null;
-  dpoContact: string | null;
 };
 
 export function legalEntityFromEnv(): LegalEntity {
@@ -32,9 +28,5 @@ export function legalEntityFromEnv(): LegalEntity {
     email: clean(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
     phone: clean(process.env.NEXT_PUBLIC_COMPANY_PHONE),
     representative: clean(process.env.NEXT_PUBLIC_COMPANY_REPRESENTATIVE),
-    register: clean(process.env.NEXT_PUBLIC_COMPANY_REGISTER),
-    vatId: clean(process.env.NEXT_PUBLIC_COMPANY_VAT_ID),
-    supervisoryAuthority: clean(process.env.NEXT_PUBLIC_COMPANY_SUPERVISORY_AUTHORITY),
-    dpoContact: clean(process.env.NEXT_PUBLIC_DPO_CONTACT),
   };
 }

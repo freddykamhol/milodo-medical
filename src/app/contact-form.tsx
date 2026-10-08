@@ -816,12 +816,21 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
               checked={form.privacyConsent}
               onChange={(e) => set("privacyConsent", e.target.checked)}
             />
-            <span>
-              Ich habe die{" "}
-              <a className="underline underline-offset-4 hover:text-[var(--foreground)]" href="/datenschutz">
-                Datenschutzerklärung
-              </a>{" "}
-              gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.
+            <span className="grid gap-1">
+              <span>
+                Ich habe die{" "}
+                <a className="underline underline-offset-4 hover:text-[var(--foreground)]" href="/datenschutz">
+                  Datenschutzerklärung
+                </a>{" "}
+                gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.
+              </span>
+              <span>
+                Ich habe die{" "}
+                <a className="underline underline-offset-4 hover:text-[var(--foreground)]" href="/agb">
+                  Allgemeinen Geschäftsbedingungen (AGB)
+                </a>{" "}
+                gelesen und bin mit diesen einverstanden.
+              </span>
             </span>
           </label>
           <div className="text-[11px] leading-relaxed text-[color:var(--muted)]">
