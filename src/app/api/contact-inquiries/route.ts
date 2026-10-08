@@ -29,7 +29,22 @@ export async function POST(req: Request) {
   const portalUrl = getPortalUrl();
   const endpoint = `${portalUrl}/api/public/contact-inquiries`;
 
-  const bodyText = await req.text().catch(() => "");
+  let bodyText = await req.text().catch(() => "");
+  // Keep recipient routing server-controlled so the temporary CC can be
+  // removed from the environment without changing the form code.
+  try {
+    const payload = JSON.parse(bodyText) as Record<string, unknown>;
+    const inquiryTo =
+      String(process.env.INQUIRY_EMAIL ?? process.env.NEXT_PUBLIC_INQUIRY_EMAIL ?? "anfrage@milodo-medical.de").trim();
+    const inquiryCc = String(process.env.INQUIRY_CC_EMAIL ?? process.env.NEXT_PUBLIC_INQUIRY_CC_EMAIL ?? "").trim();
+    bodyText = JSON.stringify({
+      ...payload,
+      notificationTo: inquiryTo,
+      ...(inquiryCc ? { notificationCc: inquiryCc } : {}),
+    });
+  } catch {
+    // Let the portal return its normal validation error for malformed input.
+  }
   const sourceOrigin = getSourceOrigin(req);
 
   const forwardRes = await fetch(endpoint, {

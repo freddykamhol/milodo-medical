@@ -11,6 +11,9 @@ export const runtime = "nodejs";
 
 const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "info@milodo-medical.de";
+const INQUIRY_EMAIL =
+  process.env.NEXT_PUBLIC_INQUIRY_EMAIL ?? "anfrage@milodo-medical.de";
+const INQUIRY_CC_EMAIL = process.env.NEXT_PUBLIC_INQUIRY_CC_EMAIL ?? "";
 
 const HOME_IMAGES = {
   hero: "/images/home/hero2.png",
@@ -750,7 +753,7 @@ export default async function HomePage() {
                 </div>
               </div>
               <div className="min-w-0 lg:col-span-8">
-	                <ContactForm toEmail={CONTACT_EMAIL} />
+	                <ContactForm toEmail={INQUIRY_EMAIL} ccEmail={INQUIRY_CC_EMAIL} />
 	              </div>
             </div>
           </div>

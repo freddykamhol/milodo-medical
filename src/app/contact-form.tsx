@@ -42,10 +42,11 @@ function sanitize(value: string) {
   return value.trim().replace(/\s+/g, " ");
 }
 
-function buildMailto(toEmail: string, subject: string, body: string) {
+function buildMailto(toEmail: string, ccEmail: string, subject: string, body: string) {
   const query = new URLSearchParams({
     subject,
     body,
+    ...(ccEmail ? { cc: ccEmail } : {}),
   }).toString();
   return `mailto:${encodeURIComponent(toEmail)}?${query}`;
 }
@@ -63,7 +64,7 @@ function RequiredIcon(props: { className?: string }) {
   );
 }
 
-export default function ContactForm(props: { toEmail: string; initialMode?: Mode }) {
+export default function ContactForm(props: { toEmail: string; ccEmail?: string; initialMode?: Mode }) {
   const [form, setForm] = useState<FormState>({
     mode: props.initialMode ?? "kontakt",
     name: "",
@@ -97,65 +98,75 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
   const [submitState, setSubmitState] = useState<null | "ok" | "error">(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const subject = useMemo(() => {
-    if (form.mode === "eh") return "Anforderung EH-Ausbildung";
-    if (form.mode === "notfalltraining") return "Anforderung Notfalltraining";
-    if (form.mode === "sanitaet") return "Anforderung Sanitätsdienst";
-    if (form.mode === "boerse") return "Anforderung Personalvermittlung";
+  const requestType = useMemo(() => {
+    if (form.mode === "sanitaet") return "Sanitätsdienst";
+    if (form.mode === "eh") return "EH-Ausbildung";
+    if (form.mode === "notfalltraining") return "Notfalltraining";
+    if (form.mode === "boerse") return "Personalvermittlung";
     return "Kontaktanfrage";
   }, [form.mode]);
 
+  const subject = useMemo(() => `${requestType} – neue Anfrage`, [requestType]);
+
   const body = useMemo(() => {
     const lines: string[] = [];
-    lines.push(`Anfrage-Typ: ${subject}`);
+    const field = (label: string, value: string) => `${label}: ${sanitize(value) || "-"}`;
+    lines.push(requestType.toUpperCase());
+    lines.push("=".repeat(requestType.length));
     lines.push("");
-    lines.push("Kontaktdaten");
-    lines.push(`Name: ${sanitize(form.name) || "-"}`);
-    lines.push(`Firma: ${sanitize(form.company) || "-"}`);
-    lines.push(`E-Mail: ${sanitize(form.email) || "-"}`);
-    lines.push(`Telefon: ${sanitize(form.phone) || "-"}`);
+    lines.push("KONTAKTDATEN");
+    lines.push("------------");
+    lines.push(field("Name", form.name));
+    lines.push(field("Firma / Organisation", form.company));
+    lines.push(field("E-Mail", form.email));
+    lines.push(field("Telefon", form.phone));
     lines.push("");
 
     if (form.mode === "eh") {
-      lines.push("Details EH-Ausbildung");
-      lines.push(`Zielgruppe: ${sanitize(form.targetGroup) || "-"}`);
-      lines.push(`Datum/Wunschtermin: ${sanitize(form.trainingDate) || "-"}`);
-      lines.push(`Ort: ${sanitize(form.trainingLocation) || "-"}`);
-      lines.push(`Teilnehmende: ${sanitize(form.participantCount) || "-"}`);
+      lines.push("DETAILS EH-AUSBILDUNG");
+      lines.push("---------------------");
+      lines.push(field("Zielgruppe", form.targetGroup));
+      lines.push(field("Datum / Wunschtermin", form.trainingDate));
+      lines.push(field("Ort", form.trainingLocation));
+      lines.push(field("Teilnehmende", form.participantCount));
       lines.push("");
     }
 
     if (form.mode === "notfalltraining") {
-      lines.push("Details Notfalltraining");
-      lines.push(`Zielgruppe: ${sanitize(form.targetGroup) || "-"}`);
-      lines.push(`Datum/Wunschtermin: ${sanitize(form.trainingDate) || "-"}`);
-      lines.push(`Ort: ${sanitize(form.trainingLocation) || "-"}`);
-      lines.push(`Teilnehmende: ${sanitize(form.participantCount) || "-"}`);
-      lines.push(`Schwerpunkte: ${sanitize(form.notfallFocus) || "-"}`);
+      lines.push("DETAILS NOTFALLTRAINING");
+      lines.push("-----------------------");
+      lines.push(field("Zielgruppe", form.targetGroup));
+      lines.push(field("Datum / Wunschtermin", form.trainingDate));
+      lines.push(field("Ort", form.trainingLocation));
+      lines.push(field("Teilnehmende", form.participantCount));
+      lines.push(field("Schwerpunkte", form.notfallFocus));
       lines.push("");
     }
 
     if (form.mode === "sanitaet") {
-      lines.push("Details Sanitätsdienst");
-      lines.push(`Art der Veranstaltung: ${sanitize(form.eventType) || "-"}`);
-      lines.push(`Datum: ${sanitize(form.eventDate) || "-"}`);
-      lines.push(`Ort: ${sanitize(form.eventLocation) || "-"}`);
-      lines.push(`Teilnehmerzahl: ${sanitize(form.attendees) || "-"}`);
-      lines.push(`Dauer/Zeitraum: ${sanitize(form.eventDuration) || "-"}`);
+      lines.push("DETAILS SANITÄTSDIENST");
+      lines.push("---------------------");
+      lines.push(field("Art der Veranstaltung", form.eventType));
+      lines.push(field("Datum", form.eventDate));
+      lines.push(field("Ort", form.eventLocation));
+      lines.push(field("Teilnehmerzahl", form.attendees));
+      lines.push(field("Dauer / Zeitraum", form.eventDuration));
       lines.push("");
     }
 
     if (form.mode === "boerse") {
-      lines.push("Details Personalvermittlung");
-      lines.push(`Zeitraum von: ${sanitize(form.shiftDateFrom) || "-"}`);
-      lines.push(`Zeitraum bis: ${sanitize(form.shiftDateTo) || "-"}`);
-      lines.push(`Einsatzort: ${sanitize(form.shiftLocation) || "-"}`);
-      lines.push(`Qualifikation: ${sanitize(form.qualification) || "-"}`);
-      lines.push(`Anzahl Personen: ${sanitize(form.staffCount) || "-"}`);
+      lines.push("DETAILS PERSONALVERMITTLUNG");
+      lines.push("---------------------------");
+      lines.push(field("Zeitraum von", form.shiftDateFrom));
+      lines.push(field("Zeitraum bis", form.shiftDateTo));
+      lines.push(field("Einsatzort", form.shiftLocation));
+      lines.push(field("Qualifikation", form.qualification));
+      lines.push(field("Anzahl Personen", form.staffCount));
       lines.push("");
     }
 
-    lines.push("Nachricht");
+    lines.push("NACHRICHT");
+    lines.push("---------");
     lines.push(sanitize(form.message) || "-");
 
     return lines.join("\n");
@@ -181,12 +192,12 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
     form.targetGroup,
     form.trainingDate,
     form.trainingLocation,
-    subject,
+    requestType,
   ]);
 
   const mailto = useMemo(
-    () => buildMailto(props.toEmail, subject, body),
-    [props.toEmail, subject, body],
+    () => buildMailto(props.toEmail, props.ccEmail ?? "", subject, body),
+    [props.toEmail, props.ccEmail, subject, body],
   );
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -277,6 +288,9 @@ export default function ContactForm(props: { toEmail: string; initialMode?: Mode
         body: JSON.stringify({
           website: form.website,
           mode: form.mode,
+          requestType,
+          emailSubject: subject,
+          emailBody: body,
           name: sanitize(form.name),
           company: sanitize(form.company),
           email: sanitize(form.email),
