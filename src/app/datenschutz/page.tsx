@@ -14,7 +14,7 @@ export default function DatenschutzPage() {
   return (
     <LegalPage
       title="Datenschutzerklärung"
-      lead="Diese Datenschutzerklärung informiert über die Verarbeitung personenbezogener Daten beim Besuch dieser Website. Bitte ergänze fehlende Angaben (mit „—“ gekennzeichnet) vor dem Launch."
+      lead="Diese Datenschutzerklärung informiert über die Verarbeitung personenbezogener Daten beim Besuch dieser Website."
       toc={[
         { href: "#verantwortlicher", label: "Verantwortlicher" },
         { href: "#zwecke", label: "Zwecke & Rechtsgrundlagen" },
@@ -33,15 +33,15 @@ export default function DatenschutzPage() {
         <h2 className="text-base font-semibold text-[var(--foreground)]">1. Verantwortlicher</h2>
         <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface-2)] p-5">
           <div className="font-semibold text-[var(--foreground)]">
-            {legal.companyName ?? "— Firmenname (NEXT_PUBLIC_COMPANY_NAME)"}
+            {legal.companyName ?? "—"}
             {legal.legalForm ? ` · ${legal.legalForm}` : ""}
           </div>
           <div className="mt-1 whitespace-pre-line">
-            {legal.address ?? "— Anschrift (NEXT_PUBLIC_COMPANY_ADDRESS)"}
+            {legal.address ?? "—"}
           </div>
           <div className="mt-3 grid gap-1">
-            <div>E-Mail: {legal.email ?? "— (NEXT_PUBLIC_CONTACT_EMAIL)"}</div>
-            <div>Telefon: {legal.phone ?? "— (NEXT_PUBLIC_COMPANY_PHONE)"}</div>
+            <div>E-Mail: {legal.email ?? "—"}</div>
+            <div>Telefon: {legal.phone ?? "—"}</div>
           </div>
         </div>
         <div>
